@@ -4,8 +4,6 @@
 
 <h1 align="center">mooc helper</h1>
 
-<div align="center">
-
 获取**中国大学 mooc 课程**的**单元测验**、**单元作业**的答案
 
 ## Questions
