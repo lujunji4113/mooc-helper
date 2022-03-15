@@ -10,11 +10,11 @@
 
 ##### 一、什么是单元测验的 id？
 
-![单元测验 id](./images/docs/单元测验.png)
+![单元测验 id](./docs/images/单元测验.png)
 
 ##### 二、什么是单元作业的 id？
 
-![单元作业 id](./images/docs/单元作业.png)
+![单元作业 id](./docs/images/单元作业.png)
 
 ##### 三、什么是课程的 id?
 
