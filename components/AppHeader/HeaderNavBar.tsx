@@ -60,7 +60,10 @@ export default function HeaderNavBar() {
           </Link>
         </li>
         <li role="none">
-          <Link role="menuitem" href="/help">
+          <Link
+            role="menuitem"
+            href="https://github.com/lujunji-xiaolu/mooc-helper/blob/master/README.md"
+          >
             帮助
           </Link>
         </li>
