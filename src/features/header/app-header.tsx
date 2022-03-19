@@ -1,6 +1,4 @@
-import { useState, useEffect } from "react";
-
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { useModeState } from "@/features/theme";
 
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -9,9 +7,10 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
-import SvgLogo from "../SvgLogo";
-import Link from "../Link";
-import HeaderNavBar from "./HeaderNavBar";
+import Link from "@/components/Link";
+import SvgLogo from "./svg-logo";
+import HeaderNavBar from "./header-nav-bar";
+import ThemeModeToggle from "./theme-mode-toggle";
 
 import { styled, alpha } from "@mui/material/styles";
 
@@ -33,6 +32,13 @@ const Header = styled("header")(({ theme }) => ({
 }));
 
 const AppHeader: React.FC = () => {
+  const [mode, setMode] = useModeState();
+
+  const handleChangeThemeMode = (checked: boolean) => {
+    const paletteMode = checked ? "dark" : "light";
+    setMode(paletteMode);
+  };
+
   return (
     <Header>
       <Container sx={{ display: "flex", alignItems: "center", minHeight: 56 }}>
@@ -54,12 +60,17 @@ const AppHeader: React.FC = () => {
               component="a"
               color="primary"
               href="https://github.com/lujunji-xiaolu/mooc-helper"
+              target="_blank"
               data-ga-event-category="header"
               data-ga-event-action="github"
             >
               <GitHubIcon fontSize="small" />
             </IconButton>
           </Tooltip>
+          <ThemeModeToggle
+            checked={mode === "dark"}
+            onChange={handleChangeThemeMode}
+          />
         </Stack>
       </Container>
     </Header>

@@ -1,6 +1,6 @@
 import { styled } from "@mui/material/styles";
 
-import Link from "../Link";
+import Link from "@/components/Link";
 
 const Navigation = styled("nav")(({ theme }) => ({
   "& ul": {
@@ -44,25 +44,8 @@ export default function HeaderNavBar() {
   return (
     <Navigation>
       <ul role="menubar">
-        <li role="none">
-          <Link role="menuitem" href="/paper">
-            单元测验
-          </Link>
-        </li>
-        <li role="none">
-          <Link role="menuitem" href="/homework">
-            单元作业
-          </Link>
-        </li>
-        <li role="none">
-          <Link role="menuitem" href="/courses">
-            课程
-          </Link>
-        </li>
-        <li role="none">
-          <Link role="menuitem" href="https://gitee.com/lujunji/mooc-helper">
-            帮助
-          </Link>
+        <li role="menuitem">
+          <Link href="/workspace">工作区</Link>
         </li>
       </ul>
     </Navigation>

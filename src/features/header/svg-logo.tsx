@@ -1,6 +1,6 @@
-import { styled } from '@mui/material/styles'
+import { styled } from "@mui/material/styles";
 
-const Svg = styled('svg')({})
+const Svg = styled("svg")({});
 
 const SvgLogo: React.FC = () => {
   return (

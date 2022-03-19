@@ -2,7 +2,13 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import Typography from "@mui/material/Typography";
 
-const Loading: React.FC = () => {
+interface LoadingProps {
+  loading?: boolean;
+}
+
+const Loading: React.FC<LoadingProps> = ({ loading = true }) => {
+  if (!loading) return null;
+
   return (
     <Box
       sx={{
