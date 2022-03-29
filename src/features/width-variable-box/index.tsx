@@ -42,22 +42,42 @@ const WidthVariableBox: React.FC = ({ children }) => {
   };
 
   return (
-    <Box
-      ref={boxRef}
-      sx={{
-        position: "relative",
-        width: getBoxWidth(460),
-        height: "100%",
-      }}
-    >
-      {children}
+    <>
+      <Box
+        ref={boxRef}
+        sx={{
+          position: "relative",
+          width: getBoxWidth(460),
+          height: "100%",
+          overflow: "auto",
+          "&::-webkit-scrollbar": {
+            position: "absolute",
+            width: 10,
+          },
+          "&::-webkit-scrollbar-track": {
+            position: "absolute",
+            backgroundColor: "transparent",
+          },
+          "&::-webkit-scrollbar-thumb": {
+            position: "absolute",
+            backgroundColor: "white",
+            borderRadius: 5,
+          },
+          "&::-webkit-scrollbar-thumb:hover": {
+            backgroundColor: "pink",
+            borderRadius: 5,
+          },
+          "&::-webkit-scrollbar-thumb:active": {
+            backgroundColor: "green",
+            borderRadius: 5,
+          },
+        }}
+      >
+        {children}
+      </Box>
       <Box
         sx={{
-          position: "absolute",
-          top: 0,
-          right: 0,
-          bottom: 0,
-          width: 2,
+          width: 3,
           backgroundColor: (theme) =>
             theme.palette.mode === "dark"
               ? theme.palette.primary[900]
@@ -66,7 +86,7 @@ const WidthVariableBox: React.FC = ({ children }) => {
         }}
         onMouseDown={handleMouseDown}
       />
-    </Box>
+    </>
   );
 };
 
