@@ -1,7 +1,13 @@
 import type { NextPage } from "next";
+
 import Box from "@mui/material/Box";
-import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
+
+import { AppHeader } from "@/features/header";
+import { CourseDrawer, useSelectedCourse } from "@/features/course-drawer";
+import { CourseTreeView } from "@/features/chapter-tree-view";
+import { Paper } from "@/features/paper";
+import { Homework } from "@/features/homework";
 
 import { styled } from "@mui/material/styles";
 
@@ -17,21 +23,73 @@ const GradientText = styled("span")<{
 }));
 
 const Home: NextPage = () => {
+  const selectedCourse = useSelectedCourse();
+
+  const renderContent = () => {
+    if (!selectedCourse) {
+      return (
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            textAlign: "center",
+          }}
+        >
+          <Box>
+            <Typography variant="h1" sx={{ my: 2, maxWidth: 500 }}>
+              The Mooc <GradientText>&nbsp;helper</GradientText> you always
+              wanted
+            </Typography>
+            <Typography color="text.secondary" sx={{ mb: 3, maxWidth: 500 }}>
+              Search for 中国大学MOOC慕课 unit quiz, unit assignment answers.
+            </Typography>
+          </Box>
+        </Box>
+      );
+    }
+    return (
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: { xs: "column", sm: "column", md: "row", lg: "row" },
+          maxHeight: "calc(100vh - 56px)",
+        }}
+      >
+        <Box
+          sx={{
+            position: {
+              xs: "fixed",
+              sm: "fixed",
+              md: "relative",
+              lg: "relative",
+            },
+            width: { xs: "100%", sm: "100%", md: 300, lg: 300 },
+            backdropFilter: "blur(20px)",
+            zIndex: 1,
+            overflow: "auto",
+          }}
+        >
+          <CourseTreeView />
+        </Box>
+        <Box
+          sx={{
+            flex: 1,
+            height: "calc(100vh - 56px)",
+            overflow: "auto",
+          }}
+        >
+          <Paper />
+          <Homework />
+        </Box>
+      </Box>
+    );
+  };
+
   return (
     <Box>
-      <Container>
-        <Box sx={{ textAlign: { xs: "center", md: "left" } }}>
-          <Typography variant="h1" sx={{ my: 2, maxWidth: 500 }}>
-            The React <GradientText>UI&nbsp;library</GradientText> you always
-            wanted
-          </Typography>
-          <Typography color="text.secondary" sx={{ mb: 3, maxWidth: 500 }}>
-            MUI provides a robust, customizable, and accessible library of
-            foundational and advanced components, enabling you to build your
-            design system and develop React applications faster.
-          </Typography>
-        </Box>
-      </Container>
+      <AppHeader />
+      <CourseDrawer />
+      {renderContent()}
     </Box>
   );
 };

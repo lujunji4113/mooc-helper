@@ -1,19 +1,16 @@
-import type { HomeworkQuestion } from "@/state";
-
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import { useHomeworkList } from "./recoil";
+import { clearInlineStyle } from "../../util";
 
-interface HomeworkProps {
-  homeworkQuestionList: HomeworkQuestion[];
-}
-
-const Homework: React.FC<HomeworkProps> = ({ homeworkQuestionList }) => {
+const Homework: React.FC = () => {
+  const homeworkList = useHomeworkList();
   return (
     <Box>
-      {homeworkQuestionList.map((question, index) => {
+      {homeworkList.map((homework) => {
         return (
           <Box
-            key={question.id}
+            key={homework.id}
             component="span"
             sx={{
               display: "flex",
@@ -26,7 +23,7 @@ const Homework: React.FC<HomeworkProps> = ({ homeworkQuestionList }) => {
               "&:hover, &:focus": {
                 bgcolor: (theme) =>
                   theme.palette.mode === "dark"
-                    ? "primaryDark.800"
+                    ? "primaryDark.700"
                     : "grey.100",
                 "@media (hover: none)": {
                   bgcolor: "transparent",
@@ -41,14 +38,18 @@ const Homework: React.FC<HomeworkProps> = ({ homeworkQuestionList }) => {
                 fontWeight="bold"
                 display="block"
               >
-                {question.plainTextTitle}
+                {clearInlineStyle(homework.title)}
               </Typography>
-              <Typography>
-                {question.judgeDtos.map((judgeDtosItem) => (
-                  <span
-                    key={judgeDtosItem.id}
-                    dangerouslySetInnerHTML={{ __html: judgeDtosItem.msg }}
-                  ></span>
+
+              <Typography
+                sx={{
+                  mt: 2,
+                }}
+              >
+                {homework.judgeDtos.map((judgeDto) => (
+                  <span style={{ display: "block" }} key={judgeDto.id}>
+                    {clearInlineStyle(judgeDto.msg)}
+                  </span>
                 ))}
               </Typography>
             </span>

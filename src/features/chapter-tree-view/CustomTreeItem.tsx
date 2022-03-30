@@ -1,7 +1,7 @@
 import type { TreeItemProps } from "@mui/lab/TreeItem";
 
 import TreeItem from "@mui/lab/TreeItem";
-import CustomContent from "./custom-content";
+import CustomContent from "./CustomContent";
 
 import { styled } from "@mui/material/styles";
 

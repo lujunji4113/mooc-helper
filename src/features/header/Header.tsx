@@ -1,4 +1,4 @@
-import { useModeState } from "@/features/theme";
+import { useSetOpenCourseDrawer } from "@/features/course-drawer";
 
 import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
@@ -8,9 +8,10 @@ import IconButton from "@mui/material/IconButton";
 import GitHubIcon from "@mui/icons-material/GitHub";
 
 import Link from "@/components/Link";
-import SvgLogo from "./svg-logo";
-import HeaderNavBar from "./header-nav-bar";
-import ThemeModeToggle from "./theme-mode-toggle";
+import CourseIcon from "./icons/CourseIcon";
+import SvgLogo from "./icons/SvgLogo";
+import AddCourse from "./AddCourse";
+import ThemeModeToggle from "./ThemeModeToggle";
 
 import { styled, alpha } from "@mui/material/styles";
 
@@ -32,12 +33,7 @@ const Header = styled("header")(({ theme }) => ({
 }));
 
 const AppHeader: React.FC = () => {
-  const [mode, setMode] = useModeState();
-
-  const handleChangeThemeMode = (checked: boolean) => {
-    const paletteMode = checked ? "dark" : "light";
-    setMode(paletteMode);
-  };
+  const openCourseDrawer = useSetOpenCourseDrawer();
 
   return (
     <Header>
@@ -50,11 +46,16 @@ const AppHeader: React.FC = () => {
         >
           <SvgLogo />
         </Box>
-        <Box>
-          <HeaderNavBar />
-        </Box>
         <Box sx={{ ml: "auto" }} />
         <Stack direction="row" spacing={1}>
+          <AddCourse />
+
+          <Tooltip title="课程" enterDelay={300}>
+            <IconButton onClick={() => openCourseDrawer(true)}>
+              <CourseIcon color="primary" fontSize="small" />
+            </IconButton>
+          </Tooltip>
+
           <Tooltip title="Github 存储库" enterDelay={300}>
             <IconButton
               component="a"
@@ -67,10 +68,8 @@ const AppHeader: React.FC = () => {
               <GitHubIcon fontSize="small" />
             </IconButton>
           </Tooltip>
-          <ThemeModeToggle
-            checked={mode === "dark"}
-            onChange={handleChangeThemeMode}
-          />
+
+          <ThemeModeToggle />
         </Stack>
       </Container>
     </Header>

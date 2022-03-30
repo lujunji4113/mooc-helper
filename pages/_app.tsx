@@ -3,7 +3,6 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { RecoilRoot } from "recoil";
 import { BrandingProvider } from "@/features/theme";
-import { AppHeader } from "@/features/header";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
@@ -12,10 +11,16 @@ function MyApp({ Component, pageProps }: AppProps) {
         <Head>
           <title>mooc helper</title>
           <meta name="referrer" content="no-referrer" />
-          <meta name="description" content="mooc helper" />
+          <meta
+            name="keywords"
+            content="mooc helper,查询中国大学MOOC慕课答案,慕课单元测验,慕课单元作业"
+          />
+          <meta
+            name="description"
+            content="查询中国大学MOOC慕课单元测验,单元作业答案"
+          />
           <link rel="icon" href="/favicon.ico" />
         </Head>
-        <AppHeader />
         <main>
           <Component {...pageProps} />
         </main>

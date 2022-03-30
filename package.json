@@ -17,14 +17,13 @@
     "@mui/utils": "^5.4.4",
     "axios": "^0.26.1",
     "clsx": "^1.1.1",
-    "lodash": "^4.17.21",
+    "htmlparser2": "^7.2.0",
     "next": "12.1.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "recoil": "^0.6.1"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.179",
     "@types/node": "17.0.21",
     "@types/react": "17.0.40",
     "eslint": "8.11.0",

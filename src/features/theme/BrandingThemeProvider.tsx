@@ -1,13 +1,13 @@
 import * as React from "react";
 
 import useMediaQuery from "@mui/material/useMediaQuery";
-import { useModeState } from "./mode-state";
+import { useModeState } from "./recoil";
 
 import { deepmerge } from "@mui/utils";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 
-import { getDesignTokens, getThemedComponents } from "./branding-theme";
+import { getDesignTokens, getThemedComponents } from "./brandingTheme";
 
 export default function BrandingProvider({
   children,

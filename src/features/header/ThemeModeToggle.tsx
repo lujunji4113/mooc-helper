@@ -3,20 +3,20 @@ import Tooltip from "@mui/material/Tooltip";
 import DarkModeOutlined from "@mui/icons-material/DarkModeOutlined";
 import LightModeOutlined from "@mui/icons-material/LightModeOutlined";
 
-interface ThemeModeToggleProps {
-  checked: boolean;
-  onChange: (checked: boolean) => void;
-}
+import { useModeState } from "@/features/theme";
 
-export default function ThemeModeToggle(props: ThemeModeToggleProps) {
+export default function ThemeModeToggle() {
+  const [mode, setMode] = useModeState();
+  const darkMode = mode === "dark";
+
   return (
-    <Tooltip title={props.checked ? "Turn on the light" : "Turn off the light"}>
+    <Tooltip title={darkMode ? "开灯" : "关灯"}>
       <IconButton
         color="primary"
         disableTouchRipple
-        onClick={() => props.onChange(!props.checked)}
+        onClick={() => setMode(darkMode ? "light" : "dark")}
       >
-        {props.checked ? (
+        {darkMode ? (
           <LightModeOutlined fontSize="small" />
         ) : (
           <DarkModeOutlined fontSize="small" />
