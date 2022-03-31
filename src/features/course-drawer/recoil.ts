@@ -51,6 +51,9 @@ export const useUpdateCourseList = () => {
       const res = await axios({
         url: "https://qckftx.api.cloudendpoint.cn/courseList",
         method: "GET",
+        params: {
+          "mob-token": localStorage.getItem("mob-token") ?? "",
+        },
       });
       const { status, results } = res.data;
       if (status.code === 0) {

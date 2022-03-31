@@ -46,6 +46,7 @@ export default function CourseTreeView() {
       url: "https://qckftx.api.cloudendpoint.cn/getPaper",
       params: {
         testId: contentId,
+        "mob-token": localStorage.getItem("mob-token") ?? "",
       },
     });
     if (res.data.status.code === 0) {
@@ -63,6 +64,7 @@ export default function CourseTreeView() {
       url: "https://qckftx.api.cloudendpoint.cn/getHomework",
       params: {
         tid: contentId,
+        "mob-token": localStorage.getItem("mob-token") ?? "",
       },
     });
     if (res.data.status.code === 0) {
@@ -84,6 +86,7 @@ export default function CourseTreeView() {
         params: {
           courseId: selectedCourse.id,
           termId: selectedCourse.currentTermId,
+          "mob-token": localStorage.getItem("mob-token") ?? "",
         },
       }).then(({ data }) => {
         setChapters(data);

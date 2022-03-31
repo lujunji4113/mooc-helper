@@ -1,7 +1,6 @@
 import * as React from "react";
 
 import Button from "@mui/material/Button";
-import AddIcon from "@mui/icons-material/Add";
 import Dialog from "@mui/material/Dialog";
 import DialogTitle from "@mui/material/DialogTitle";
 import DialogContent from "@mui/material/DialogContent";
@@ -11,62 +10,61 @@ import DialogActions from "@mui/material/DialogActions";
 import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Link from "@/components/Link";
+import TokenIcon from "@mui/icons-material/Token";
 
-import { useUpdateCourseList } from "@/features/course-drawer/recoil";
 import { useSetMessage } from "@/features/message";
+import { useSetEnableAddCourse } from "./recoil";
 
-import axios from "axios";
-
-const AddCourse: React.FC = () => {
-  const [termId, setTermId] = React.useState("");
+const AddToken: React.FC = () => {
+  const [token, setToken] = React.useState("");
   const [open, setOpen] = React.useState(false);
-  const updateCourseList = useUpdateCourseList();
   const setMessage = useSetMessage();
+  const setEnableAddCourse = useSetEnableAddCourse();
 
   const handleClose = () => {
-    setTermId("");
+    setToken("");
     setOpen(false);
   };
 
-  const handleAddCourse = async () => {
-    if (termId.trim()) {
-      const res = await axios({
-        method: "GET",
-        url: "https://qckftx.api.cloudendpoint.cn/addCourse",
-        params: {
-          tid: termId.trim(),
-          "mob-token": localStorage.getItem("mob-token") ?? "",
-        },
-      });
-      if (res.data.status.code === 0) {
-        updateCourseList();
-        setMessage("加入成功");
-      } else {
-        setMessage(res.data.status.message);
-      }
+  const handleAddToken = async () => {
+    if (token.trim()) {
+      localStorage.setItem("mob-token", token);
+      setToken("");
       setOpen(false);
-      setTermId("");
+      setMessage("设置成功");
+      setEnableAddCourse(false);
     }
   };
 
   const handleKeyDown: React.KeyboardEventHandler<HTMLDivElement> = (event) => {
     if (event.key === "Enter") {
-      handleAddCourse();
+      handleAddToken();
+      setTimeout(() => {
+        setOpen(false);
+      }, 0);
     }
   };
 
+  React.useEffect(() => {
+    if (open) {
+      setToken(localStorage.getItem("mob-token") ?? "");
+    }
+  }, [open]);
+
   return (
     <>
-      <Tooltip title="添加课程" enterDelay={300}>
+      <Tooltip title="mob-token" enterDelay={300}>
         <IconButton onClick={() => setOpen(true)}>
-          <AddIcon color="primary" fontSize="small" />
+          <TokenIcon color="primary" fontSize="small" />
         </IconButton>
       </Tooltip>
       <Dialog open={open} onClose={handleClose}>
-        <DialogTitle>添加课程</DialogTitle>
+        <DialogTitle>设置 mob-token</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            添加课程需要课程的ID，具体详情参见
+            设置 mob-token 后所有数据都是您的个人的数据，mob-token
+            存储在浏览器的 localStorage
+            中，在每次请求时均会携带上，后台不会存储您的 mob-token 具体详情参见
             <Link
               href="https://github.com/lujunji-xiaolu/mooc-helper"
               target="_blank"
@@ -78,21 +76,22 @@ const AddCourse: React.FC = () => {
             autoFocus
             margin="dense"
             id="name"
-            label="课程ID"
-            type="number"
+            label="token"
+            type="text"
             fullWidth
             variant="standard"
-            onChange={(event) => setTermId(event.target.value)}
+            value={token}
+            onChange={(event) => setToken(event.target.value)}
             onKeyDown={handleKeyDown}
           />
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose}>取消</Button>
-          <Button onClick={handleAddCourse}>添加</Button>
+          <Button onClick={handleAddToken}>设置</Button>
         </DialogActions>
       </Dialog>
     </>
   );
 };
 
-export default AddCourse;
+export default AddToken;

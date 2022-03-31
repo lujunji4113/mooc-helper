@@ -1,3 +1,4 @@
+import * as React from "react";
 import { useSetOpenCourseDrawer } from "@/features/course-drawer";
 
 import Container from "@mui/material/Container";
@@ -11,9 +12,11 @@ import Link from "@/components/Link";
 import CourseIcon from "./icons/CourseIcon";
 import SvgLogo from "./icons/SvgLogo";
 import AddCourse from "./AddCourse";
+import AddToken from "./AddToken";
 import ThemeModeToggle from "./ThemeModeToggle";
 
 import { styled, alpha } from "@mui/material/styles";
+import { useEnableAddCourseState } from "./recoil";
 
 const Header = styled("header")(({ theme }) => ({
   position: "sticky",
@@ -33,7 +36,12 @@ const Header = styled("header")(({ theme }) => ({
 }));
 
 const AppHeader: React.FC = () => {
+  const [enableAddCourse, setEnableAddCourse] = useEnableAddCourseState();
   const openCourseDrawer = useSetOpenCourseDrawer();
+
+  React.useEffect(() => {
+    setEnableAddCourse(!localStorage.getItem("mob-token"));
+  }, []);
 
   return (
     <Header>
@@ -48,7 +56,8 @@ const AppHeader: React.FC = () => {
         </Box>
         <Box sx={{ ml: "auto" }} />
         <Stack direction="row" spacing={1}>
-          <AddCourse />
+          <AddToken />
+          {enableAddCourse && <AddCourse />}
 
           <Tooltip title="课程" enterDelay={300}>
             <IconButton onClick={() => openCourseDrawer(true)}>
