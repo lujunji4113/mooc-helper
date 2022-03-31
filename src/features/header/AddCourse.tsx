@@ -13,6 +13,7 @@ import IconButton from "@mui/material/IconButton";
 import Link from "@/components/Link";
 
 import { useUpdateCourseList } from "@/features/course-drawer/recoil";
+import { useSetMessage } from "@/features/message";
 
 import axios from "axios";
 
@@ -20,6 +21,7 @@ const AddCourse: React.FC = () => {
   const [termId, setTermId] = React.useState("");
   const [open, setOpen] = React.useState(false);
   const updateCourseList = useUpdateCourseList();
+  const setMessage = useSetMessage();
 
   const handleClose = () => {
     setTermId("");
@@ -37,6 +39,9 @@ const AddCourse: React.FC = () => {
       });
       if (res.data.status.code === 0) {
         updateCourseList();
+        setMessage("加入成功");
+      } else {
+        setMessage(res.data.status.message);
       }
       setOpen(false);
       setTermId("");

@@ -8,6 +8,7 @@ import { CourseDrawer, useSelectedCourse } from "@/features/course-drawer";
 import { CourseTreeView } from "@/features/chapter-tree-view";
 import { Paper } from "@/features/paper";
 import { Homework } from "@/features/homework";
+import { Message } from "@/features/message";
 
 import { styled } from "@mui/material/styles";
 
@@ -90,6 +91,7 @@ const Home: NextPage = () => {
       <AppHeader />
       <CourseDrawer />
       {renderContent()}
+      <Message />
     </Box>
   );
 };
