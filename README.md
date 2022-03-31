@@ -44,7 +44,7 @@
 
 你需要使用手机抓包工具，比如 [HttpCanary for Android - APK Download (apkpure.com)](https://apkpure.com/httpcanary-—-http-sniffer-capture-analysis/com.guoshi.httpcanary)
 
-抓取 **中国大学MOOC** APP 的某些请求，比如![img](file:///C:\Users\lujun\AppData\Roaming\Tencent\QQTempSys\8LDO48C$8@[GWU0353$FOVS.png)https://www.icourse163.org/mm-classroom/mob/j/v1/mocTermClassroomRpcBean.getStudentClassrooms.rpc。这些请求会携带 mob-token
+抓取 **中国大学MOOC** APP 的某些请求，比如 https://www.icourse163.org/mm-classroom/mob/j/v1/mocTermClassroomRpcBean.getStudentClassrooms.rpc 这些请求会携带 mob-token
 
 2. 设置 mob-token
 
