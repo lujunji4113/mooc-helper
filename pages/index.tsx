@@ -77,6 +77,7 @@ const Home: NextPage = () => {
             flex: 1,
             height: "calc(100vh - 56px)",
             overflow: "auto",
+            marginTop: { xs: 5.4, sm: 5.4, md: 0, lg: 0 },
           }}
         >
           <Paper />

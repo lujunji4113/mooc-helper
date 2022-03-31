@@ -38,6 +38,9 @@ export default function CourseTreeView() {
   }, [matches]);
 
   const handleQuizClick = async (contentId: number) => {
+    if (!matches) {
+      setExpanded([]);
+    }
     const res = await axios({
       method: "GET",
       url: "https://qckftx.api.cloudendpoint.cn/getPaper",
@@ -52,6 +55,9 @@ export default function CourseTreeView() {
   };
 
   const handleHomeworkClick = async (contentId: number) => {
+    if (!matches) {
+      setExpanded([]);
+    }
     const res = await axios({
       method: "GET",
       url: "https://qckftx.api.cloudendpoint.cn/getHomework",
