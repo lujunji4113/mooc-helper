@@ -68,7 +68,7 @@
 
 ##### 步骤五
 
-打开 中国大学 MOOC 慕课 APP，切换至 学习 模块，等待该页面加载完成
+打开 中国大学 MOOC APP，切换至 学习 模块，等待该页面加载完成
 
 ![打开 中国大学MOOC慕课 APP，切换至 学习 模块](./docs/images/mooc-learn-module.png)
 
@@ -78,7 +78,7 @@
 
 ![对 getAllMyCourseList 关键字进行搜索](./docs/images/httpcanary-search.png)
 
-![对 getAllMyCourseList 关键字进行搜索](./docs/images/httpcanary-search-getAllMyCourseList.png)
+![对 getAllMyCourseList 关键字进行搜索](./docs/images/httpcanary-search-getAllMyCourselist.png)
 
 ##### 步骤七
 
