@@ -13,6 +13,7 @@ import Link from "@/components/Link";
 import TokenIcon from "@mui/icons-material/Token";
 
 import { useSetMessage } from "@/features/message";
+import { useUpdateCourseList } from "@/features/course-drawer";
 import { useSetEnableAddCourse } from "./recoil";
 
 const AddToken: React.FC = () => {
@@ -20,6 +21,7 @@ const AddToken: React.FC = () => {
   const [open, setOpen] = React.useState(false);
   const setMessage = useSetMessage();
   const setEnableAddCourse = useSetEnableAddCourse();
+  const updateCourseList = useUpdateCourseList();
 
   const handleClose = () => {
     setToken("");
@@ -27,12 +29,13 @@ const AddToken: React.FC = () => {
   };
 
   const handleAddToken = async () => {
-    if (token.trim()) {
+    if (token !== (localStorage.getItem("mob-token") ?? "")) {
       localStorage.setItem("mob-token", token);
       setToken("");
       setOpen(false);
       setMessage("设置成功");
       setEnableAddCourse(false);
+      updateCourseList();
     }
   };
 

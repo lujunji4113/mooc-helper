@@ -8,23 +8,25 @@
 
 ## 静态网站地址
 
-[mooc helper (cloudendpoint.cn)](https://mooc-helper.web.cloudendpoint.cn/)
+[mooc helper](https://mooc-helper.web.cloudendpoint.cn/)
 
 ## 用法
 
-1. [添加课程](#addCourse)（如果待查询课程未添加）
+### 前置条件
 
-> SPOC学校专属课程无法添加，除非你[设置 mob-token](#setMobToken)。(设置 mob-token 后，所有课程信息自动导入)
+查询前需要 [添加课程](#addCourse) 或 [设置mob-token](#setMobToken)
 
-1. 选择对应课程
+> SPOC学校专有课程无法添加，除非设置mob-token。设置mob-token后，课程信息自动导入，不再需要添加课程
+
+### 选择对应课程
 
 ![选择课程](./docs/images/选择课程.png)
 
-3. 选择章节
+### 选择章节
 
 ![选择章节](./docs/images/选择章节.png)
 
-4. 点击查询
+### 点击查询
 
 ![点击查询](./docs/images/点击查询.png)
 
@@ -40,13 +42,49 @@
 
 ### 2、设置 mob-token<a name="setMobToken"></a>
 
-1. 如何获取 mob-token ？
+#### 1、获取 mob-token
 
-你需要使用手机抓包工具，比如 [HttpCanary for Android - APK Download (apkpure.com)](https://apkpure.com/httpcanary-—-http-sniffer-capture-analysis/com.guoshi.httpcanary)
+##### 步骤一
 
-抓取 **中国大学MOOC** APP 的某些请求，比如 https://www.icourse163.org/mm-classroom/mob/j/v1/mocTermClassroomRpcBean.getStudentClassrooms.rpc 这些请求会携带 mob-token
+在手机上安装抓包软件，比如 [HttpCanary for Android - APK Download (apkpure.com)](https://apkpure.com/httpcanary-—-http-sniffer-capture-analysis/com.guoshi.httpcanary)
 
-2. 设置 mob-token
+##### 步骤二
+
+打开抓包软件，这里以 HttpCanary 为例
+
+打开设置界面
+
+![打开设置界面](./docs/images/httpcanary-setting.png)
+
+##### 步骤三
+
+开启 只抓取 http/https
+
+![开启 只抓取 http/https](./docs/images/httpcanary-only-http.png)
+
+##### 步骤四
+
+将 中国大学MOOC慕课 APP 添加进目标应用，点击开始抓包
+
+##### 步骤五
+
+打开 中国大学MOOC慕课 APP，切换至 学习 模块
+
+![打开 中国大学MOOC慕课 APP，切换至 学习 模块](./docs/images/mooc-learn-module.png)
+
+##### 步骤六
+
+回到 HttpCanary 应用界面，对 getAllMyCourseList 关键字进行搜索
+
+![对 getAllMyCourseList 关键字进行搜索](./docs/images/httpcanary-search.png)
+
+![对 getAllMyCourseList 关键字进行搜索](./docs/images/httpcanary-search-getAllMyCourseList.png)
+
+##### 步骤七
+
+选取任意一条记录，进入查看，选择 请求 选项卡，在选择 预览，然后我们就得到了 mob-token
+
+#### 2、设置 mob-token
 
 ![设置mob-token](./docs/images/设置mob-token.png)
 
