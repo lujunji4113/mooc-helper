@@ -4,7 +4,7 @@
 
 <h1 align="center">mooc helper</h1>
 
-查询**中国大学MOOC慕课课程**的**单元测验**、**单元作业**的答案
+查询**中国大学 MOOC 慕课课程**的**单元测验**、**单元作业**的答案
 
 ## 静态网站地址
 
@@ -14,9 +14,9 @@
 
 ### 前置条件
 
-查询前需要 [添加课程](#addCourse) 或 [设置mob-token](#setMobToken)
+查询前需要 [添加课程](#addCourse) 或 [设置 mob-token](#setMobToken)
 
-> SPOC学校专有课程无法添加，除非设置mob-token。设置mob-token后，课程信息自动导入，不再需要添加课程
+> SPOC 学校专有课程无法添加，除非设置 mob-token。设置 mob-token 后，课程信息自动导入，不再需要添加课程
 
 ### 选择对应课程
 
@@ -36,7 +36,7 @@
 
 ![课程 id](./docs/images/课程id.png)
 
-添加课程需要课程的ID，这个ID就是`tid`字段对应的值
+添加课程需要课程的 ID，这个 ID 就是`tid`字段对应的值
 
 ![添加课程](./docs/images/添加课程.png)
 
@@ -64,11 +64,11 @@
 
 ##### 步骤四
 
-将 中国大学MOOC慕课 APP 添加进目标应用，点击开始抓包
+将 中国大学 MOOC APP 添加进目标应用，点击 开始抓包
 
 ##### 步骤五
 
-打开 中国大学MOOC慕课 APP，切换至 学习 模块
+打开 中国大学 MOOC 慕课 APP，切换至 学习 模块，等待该页面加载完成
 
 ![打开 中国大学MOOC慕课 APP，切换至 学习 模块](./docs/images/mooc-learn-module.png)
 
@@ -78,7 +78,7 @@
 
 ![对 getAllMyCourseList 关键字进行搜索](./docs/images/httpcanary-search.png)
 
-![对 getAllMyCourseList 关键字进行搜索](./docs/images/httpcanary-search-getAllMyCourselist.png)
+![对 getAllMyCourseList 关键字进行搜索](./docs/images/httpcanary-search-getAllMyCourseList.png)
 
 ##### 步骤七
 

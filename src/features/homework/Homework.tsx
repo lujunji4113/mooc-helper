@@ -47,7 +47,10 @@ const Homework: React.FC = () => {
                 }}
               >
                 {homework.judgeDtos.map((judgeDto) => (
-                  <span style={{ display: "block" }} key={judgeDto.id}>
+                  <span
+                    style={{ display: "flex", flexDirection: "column" }}
+                    key={judgeDto.id}
+                  >
                     {clearInlineStyle(judgeDto.msg)}
                   </span>
                 ))}
