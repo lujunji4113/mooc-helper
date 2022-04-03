@@ -78,7 +78,7 @@
 
 ![对 getAllMyCourseList 关键字进行搜索](./docs/images/httpcanary-search.png)
 
-![对 getAllMyCourseList 关键字进行搜索](./docs/images/httpcanary-search-getAllMyCourseList.png)
+![对 getAllMyCourseList 关键字进行搜索](./docs/images/httpcanary-search-getAllMyCourselist.png)
 
 ##### 步骤七
 
