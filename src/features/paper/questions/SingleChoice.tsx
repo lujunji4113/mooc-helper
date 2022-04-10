@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import { clearInlineStyle } from "../../../util";
+import { strToElement } from "@/utils";
 
 interface SingleChoiceProps {
   question: SingleChoiceQuestion;
@@ -38,7 +38,7 @@ const SingleChoice: React.FC<SingleChoiceProps> = ({ question }) => {
         fontWeight="bold"
         display="block"
       >
-        {clearInlineStyle(question.title)}
+        {strToElement(question.title)}
       </Typography>
       <FormControl>
         <RadioGroup
@@ -52,9 +52,7 @@ const SingleChoice: React.FC<SingleChoiceProps> = ({ question }) => {
               key={optionDto.id}
               value={optionDto.id}
               control={<Radio />}
-              label={
-                <Typography>{clearInlineStyle(optionDto.content)}</Typography>
-              }
+              label={<Typography>{strToElement(optionDto.content)}</Typography>}
             />
           ))}
         </RadioGroup>

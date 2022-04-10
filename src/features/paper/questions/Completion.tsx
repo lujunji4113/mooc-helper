@@ -1,7 +1,7 @@
 import type { CompletionQuestion } from "../interface";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { clearInlineStyle } from "../../../util";
+import { strToElement } from "@/utils";
 
 interface CompletionProps {
   question: CompletionQuestion;
@@ -34,7 +34,7 @@ const Completion: React.FC<CompletionProps> = ({ question }) => {
         fontWeight="bold"
         display="block"
       >
-        {clearInlineStyle(question.title)}
+        {strToElement(question.title)}
       </Typography>
       <Typography
         sx={{

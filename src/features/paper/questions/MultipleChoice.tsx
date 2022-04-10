@@ -5,7 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { clearInlineStyle } from "../../../util";
+import { strToElement } from "@/utils";
 
 interface MultipleChoiceProps {
   question: MultipleChoiceQuestion;
@@ -38,7 +38,7 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ question }) => {
         fontWeight="bold"
         display="block"
       >
-        {clearInlineStyle(question.title)}
+        {strToElement(question.title)}
       </Typography>
       <FormControl>
         <FormGroup>
@@ -46,9 +46,7 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ question }) => {
             <FormControlLabel
               key={optionDto.id}
               control={<Checkbox checked={optionDto.answer} />}
-              label={
-                <Typography>{clearInlineStyle(optionDto.content)}</Typography>
-              }
+              label={<Typography>{strToElement(optionDto.content)}</Typography>}
             />
           ))}
         </FormGroup>

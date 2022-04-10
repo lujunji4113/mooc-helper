@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { useHomeworkList } from "./recoil";
-import { clearInlineStyle } from "../../util";
+import { strToElement } from "@/utils";
 
 const Homework: React.FC = () => {
   const homeworkList = useHomeworkList();
@@ -38,7 +38,7 @@ const Homework: React.FC = () => {
                 fontWeight="bold"
                 display="block"
               >
-                {clearInlineStyle(homework.title)}
+                {strToElement(homework.title)}
               </Typography>
 
               <Typography
@@ -51,7 +51,7 @@ const Homework: React.FC = () => {
                     style={{ display: "flex", flexDirection: "column" }}
                     key={judgeDto.id}
                   >
-                    {clearInlineStyle(judgeDto.msg)}
+                    {strToElement(judgeDto.msg)}
                   </span>
                 ))}
               </Typography>
