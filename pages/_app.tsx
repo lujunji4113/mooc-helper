@@ -20,10 +20,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             content="查询中国大学MOOC慕课单元测验,单元作业答案"
           />
           <link rel="icon" href="/favicon.ico" />
+          <link rel="manifest" href="/static/manifest.json" />
         </Head>
-        <main>
-          <Component {...pageProps} />
-        </main>
+        <Component {...pageProps} />
       </BrandingProvider>
     </RecoilRoot>
   );

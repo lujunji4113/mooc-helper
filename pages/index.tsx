@@ -1,15 +1,12 @@
 import type { NextPage } from "next";
-
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-
 import { AppHeader } from "@/features/header";
 import { CourseDrawer, useSelectedCourse } from "@/features/course-drawer";
 import { CourseTreeView } from "@/features/chapter-tree-view";
 import { Paper } from "@/features/paper";
 import { Homework } from "@/features/homework";
 import { Message } from "@/features/message";
-
 import { styled } from "@mui/material/styles";
 
 const GradientText = styled("span")<{
@@ -42,7 +39,7 @@ const Home: NextPage = () => {
               wanted
             </Typography>
             <Typography color="text.secondary" sx={{ mb: 3, maxWidth: 500 }}>
-              Search for 中国大学MOOC慕课 unit quiz, unit assignment answers.
+              查询中国大学MOOC(慕课)单元作业、单元测验答案
             </Typography>
           </Box>
         </Box>
@@ -88,7 +85,18 @@ const Home: NextPage = () => {
   };
 
   return (
-    <Box>
+    <Box
+      sx={{
+        display: "flex",
+      }}
+    >
+      <Box
+        sx={(theme) => ({
+          width: 50,
+          height: "100vh",
+          borderRight: `2px solid ${theme.palette.primary[600]}`,
+        })}
+      ></Box>
       <AppHeader />
       <CourseDrawer />
       {renderContent()}
