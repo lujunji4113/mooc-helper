@@ -8,6 +8,7 @@ import { Paper } from "@/features/paper";
 import { Homework } from "@/features/homework";
 import { Message } from "@/features/message";
 import { styled } from "@mui/material/styles";
+import { SideBar } from "@/features/layout";
 
 const GradientText = styled("span")<{
   color?: "primary" | "error" | "success" | "warning";
@@ -90,13 +91,7 @@ const Home: NextPage = () => {
         display: "flex",
       }}
     >
-      <Box
-        sx={(theme) => ({
-          width: 50,
-          height: "100vh",
-          borderRight: `2px solid ${theme.palette.primary[600]}`,
-        })}
-      ></Box>
+      <SideBar />
       <AppHeader />
       <CourseDrawer />
       {renderContent()}

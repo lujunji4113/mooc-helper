@@ -13,14 +13,13 @@ function MyApp({ Component, pageProps }: AppProps) {
           <meta name="referrer" content="no-referrer" />
           <meta
             name="keywords"
-            content="mooc helper,查询中国大学MOOC慕课答案,慕课单元测验,慕课单元作业"
+            content="mooc helper,查询中国大学MOOC(慕课),单元测验,单元作业答案"
           />
           <meta
             name="description"
-            content="查询中国大学MOOC慕课单元测验,单元作业答案"
+            content="查询中国大学MOOC(慕课)单元测验,单元作业答案"
           />
           <link rel="icon" href="/favicon.ico" />
-          <link rel="manifest" href="/static/manifest.json" />
         </Head>
         <Component {...pageProps} />
       </BrandingProvider>
