@@ -12,7 +12,7 @@ import Tooltip from "@mui/material/Tooltip";
 import IconButton from "@mui/material/IconButton";
 import Link from "@/components/Link";
 
-import { useUpdateCourseList } from "@/features/course-drawer/recoil";
+// import { useUpdateCourseList } from "@/features/course-drawer/recoil";
 import { useSetMessage } from "@/features/message";
 
 import axios from "axios";
@@ -20,7 +20,7 @@ import axios from "axios";
 const AddCourse: React.FC = () => {
   const [termId, setTermId] = React.useState("");
   const [open, setOpen] = React.useState(false);
-  const updateCourseList = useUpdateCourseList();
+  // const updateCourseList = useUpdateCourseList();
   const setMessage = useSetMessage();
 
   const handleClose = () => {
@@ -39,7 +39,8 @@ const AddCourse: React.FC = () => {
         },
       });
       if (res.data.status.code === 0) {
-        updateCourseList();
+        // updateCourseList();
+        window.location.reload(); // TODO: fix this
         setMessage("加入成功");
       } else {
         setMessage(res.data.status.message);

@@ -1,8 +1,9 @@
 import axios from "axios";
 
 const instance = axios.create({
-  baseURL: "https://www.icourse163.org/mob/course",
-  timeout: 1000,
+  // baseURL: "https://www.icourse163.org/mob/course",
+  baseURL: "https://qckftx.api.cloudendpoint.cn",
+  timeout: 10000,
 });
 
 instance.interceptors.request.use((config) => {
@@ -15,11 +16,13 @@ instance.interceptors.request.use((config) => {
 
 export const getAllMyCourseList = async (page: number, pageSize: number) => {
   const res = await instance({
-    method: "POST",
-    url: "/getAllMyCourseList/v2",
+    // method: "POST",
+    // url: "/getAllMyCourseList/v2",
+    method: "GET",
+    url: "/getAllMyCourseList",
     params: {
-      p: page,
-      psize: pageSize,
+      page,
+      pageSize,
       type: 30,
     },
   });

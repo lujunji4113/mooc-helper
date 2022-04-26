@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import { AppHeader } from "@/features/header";
@@ -8,8 +9,9 @@ import { Paper } from "@/features/paper";
 import { Homework } from "@/features/homework";
 import { Message } from "@/features/message";
 import { styled } from "@mui/material/styles";
-import { SideBar } from "@/features/layout";
-
+// import { SideBar } from "@/features/layout";
+import { useQuestionList } from "@/features/paper/recoil";
+import { useHomeworkList } from "@/features/homework/recoil";
 const GradientText = styled("span")<{
   color?: "primary" | "error" | "success" | "warning";
 }>(({ theme, color = "primary" }) => ({
@@ -23,6 +25,15 @@ const GradientText = styled("span")<{
 
 const Home: NextPage = () => {
   const selectedCourse = useSelectedCourse();
+  const scrollView = React.useRef<HTMLDivElement>(null);
+  const questionList = useQuestionList();
+  const homeworkList = useHomeworkList();
+
+  React.useEffect(() => {
+    if (scrollView.current) {
+      scrollView.current.scrollTop = 0;
+    }
+  }, [questionList, homeworkList]);
 
   const renderContent = () => {
     if (!selectedCourse) {
@@ -51,7 +62,7 @@ const Home: NextPage = () => {
         sx={{
           display: "flex",
           flexDirection: { xs: "column", sm: "column", md: "row", lg: "row" },
-          maxHeight: "calc(100vh - 56px)",
+          maxHeight: "calc(100vh - 99.5px)",
         }}
       >
         <Box
@@ -71,9 +82,10 @@ const Home: NextPage = () => {
           <CourseTreeView />
         </Box>
         <Box
+          ref={scrollView}
           sx={{
             flex: 1,
-            height: "calc(100vh - 56px)",
+            height: "calc(100vh - 99.5px)",
             overflow: "auto",
             marginTop: { xs: 5.4, sm: 5.4, md: 0, lg: 0 },
           }}
@@ -87,11 +99,11 @@ const Home: NextPage = () => {
 
   return (
     <Box
-      sx={{
-        display: "flex",
-      }}
+    // sx={{
+    //   display: "flex",
+    // }}
     >
-      <SideBar />
+      {/* <SideBar /> */}
       <AppHeader />
       <CourseDrawer />
       {renderContent()}

@@ -14,6 +14,7 @@ import SvgLogo from "./icons/SvgLogo";
 import AddCourse from "./AddCourse";
 import AddToken from "./AddToken";
 import ThemeModeToggle from "./ThemeModeToggle";
+import AppHeaderBanner from "./AppHeaderBanner";
 
 import { styled, alpha } from "@mui/material/styles";
 import { useEnableAddCourseState } from "./recoil";
@@ -45,6 +46,7 @@ const AppHeader: React.FC = () => {
 
   return (
     <Header>
+      <AppHeaderBanner />
       <Container sx={{ display: "flex", alignItems: "center", minHeight: 56 }}>
         <Box
           component={Link}

@@ -7,6 +7,7 @@ import {
   useRecoilValue,
 } from "recoil";
 import axios from "axios";
+import { getAllMyCourseList } from "src/api";
 
 export const openCourseDrawerState = atom({
   key: "openCourseDrawerState",
@@ -41,25 +42,4 @@ export const courseListState = atom<Course[]>({
 
 export const useCourseList = () => {
   return useRecoilValue(courseListState);
-};
-
-export const useUpdateCourseList = () => {
-  const setCourseList = useSetRecoilState(courseListState);
-
-  return React.useMemo(
-    () => async () => {
-      const res = await axios({
-        url: "https://qckftx.api.cloudendpoint.cn/courseList",
-        method: "GET",
-        params: {
-          "mob-token": localStorage.getItem("mob-token") ?? "",
-        },
-      });
-      const { status, results } = res.data;
-      if (status.code === 0) {
-        setCourseList(results.result);
-      }
-    },
-    [setCourseList]
-  );
 };

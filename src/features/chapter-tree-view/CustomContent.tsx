@@ -58,6 +58,7 @@ const CustomContent = React.forwardRef(function CustomContent(
   return (
     /* @ts-ignore -- Key event is handled by the TreeView */
     <Box
+      title={label}
       className={clsx(className, classes.root, {
         [classes.expanded]: expanded,
         [classes.selected]: selected,
