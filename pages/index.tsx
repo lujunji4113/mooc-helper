@@ -1,4 +1,5 @@
 import type { NextPage } from "next";
+import * as React from "react";
 
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
@@ -11,6 +12,8 @@ import { Homework } from "@/features/homework";
 import { Message } from "@/features/message";
 
 import { styled } from "@mui/material/styles";
+import { useQuestionList } from "@/features/paper/recoil";
+import { useHomeworkList } from "@/features/homework/recoil";
 
 const GradientText = styled("span")<{
   color?: "primary" | "error" | "success" | "warning";
@@ -25,6 +28,15 @@ const GradientText = styled("span")<{
 
 const Home: NextPage = () => {
   const selectedCourse = useSelectedCourse();
+  const scrollView = React.useRef<HTMLDivElement>(null);
+  const questionList = useQuestionList();
+  const homeworkList = useHomeworkList();
+
+  React.useEffect(() => {
+    if (scrollView.current) {
+      scrollView.current.scrollTop = 0;
+    }
+  }, [questionList, homeworkList]);
 
   const renderContent = () => {
     if (!selectedCourse) {
@@ -73,6 +85,7 @@ const Home: NextPage = () => {
           <CourseTreeView />
         </Box>
         <Box
+          ref={scrollView}
           sx={{
             flex: 1,
             height: "calc(100vh - 56px)",

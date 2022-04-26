@@ -1,8 +1,10 @@
 import * as React from "react";
+import * as recoil from "recoil";
 import type { Course } from "./interface";
 
+import InfiniteScroll from "react-infinite-scroll-component";
 import Box from "@mui/material/Box";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
+import SwipeableDrawer from "@mui/material/Drawer";
 import List from "@mui/material/List";
 import ListItem from "@mui/material/ListItem";
 import CourseCard from "./CourseCard";
@@ -10,17 +12,33 @@ import CourseCard from "./CourseCard";
 import {
   useOpenCourseDrawerState,
   useSetSelectedCourse,
-  useCourseList,
-  useUpdateCourseList,
+  courseListState,
 } from "./recoil";
+import { getAllMyCourseList } from "src/api";
 
 type Anchor = "top" | "left" | "bottom" | "right";
 
 export default function SwipeableTemporaryDrawer() {
-  const courseList = useCourseList();
-  const updateCourseList = useUpdateCourseList();
+  const [page, setPage] = React.useState(1);
+  const [pageSize, setPageSize] = React.useState(1);
+  const [courseList, setCourseList] = recoil.useRecoilState(courseListState);
+
+  const fetchData = async () => {
+    if (page <= pageSize) {
+      const { status, results } = await getAllMyCourseList(page, 9);
+
+      if (status.code === 0) {
+        const { pagination, result } = results;
+        const { pageIndex, pageSize } = pagination;
+        setPageSize(pageSize);
+        setPage(pageIndex + 1);
+        setCourseList([...courseList, ...result]);
+      }
+    }
+  };
+
   React.useEffect(() => {
-    updateCourseList();
+    fetchData();
   }, []);
 
   const [open, setOpen] = useOpenCourseDrawerState();
@@ -52,36 +70,47 @@ export default function SwipeableTemporaryDrawer() {
     setSelectedCourse(course);
   };
 
-  const list = (anchor: Anchor) => (
-    <Box
-      sx={{ width: anchor === "top" || anchor === "bottom" ? "auto" : 250 }}
-      role="presentation"
-      onClick={toggleDrawer(anchor, false)}
-      onKeyDown={toggleDrawer(anchor, false)}
-    >
-      <List>
-        {courseList.map((course) => (
-          <ListItem
-            button
-            key={course.id}
-            onClick={() => handleSelectCourse(course)}
-          >
-            <CourseCard course={course} />
-          </ListItem>
-        ))}
-      </List>
-    </Box>
-  );
-
   return (
     <div>
       <SwipeableDrawer
         anchor="right"
         open={open}
         onClose={() => setOpen(false)}
-        onOpen={() => setOpen(true)}
+        // onOpen={() => setOpen(true)}
       >
-        {list("right")}
+        <InfiniteScroll
+          height="100vh"
+          dataLength={courseList.length} //This is important field to render the next data
+          next={fetchData}
+          hasMore={true}
+          // loader={<h4>Loading...</h4>}
+          endMessage={
+            <p style={{ textAlign: "center" }}>
+              <b>Yay! You have seen it all</b>
+            </p>
+          }
+        >
+          <Box
+            sx={{
+              width: 250,
+            }}
+            role="presentation"
+            onClick={toggleDrawer("right", false)}
+            onKeyDown={toggleDrawer("right", false)}
+          >
+            <List>
+              {courseList.map((course) => (
+                <ListItem
+                  button
+                  key={course.id}
+                  onClick={() => handleSelectCourse(course)}
+                >
+                  <CourseCard course={course} />
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        </InfiniteScroll>
       </SwipeableDrawer>
     </div>
   );

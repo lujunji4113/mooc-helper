@@ -2,7 +2,7 @@ import axios from "axios";
 
 const instance = axios.create({
   baseURL: "https://qckftx.api.cloudendpoint.cn",
-  timeout: 1000,
+  timeout: 10000,
 });
 
 instance.interceptors.request.use((config) => {
@@ -13,14 +13,10 @@ instance.interceptors.request.use((config) => {
   return config;
 });
 
-export const getCourseList = async (
-  _key: string,
-  page: number,
-  pageSize: number
-) => {
+export const getAllMyCourseList = async (page: number, pageSize: number) => {
   const res = await instance({
-    url: "/getCourseList",
     method: "GET",
+    url: "/getAllMyCourseList",
     params: {
       page,
       pageSize,
