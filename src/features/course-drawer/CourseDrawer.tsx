@@ -83,7 +83,7 @@ export default function SwipeableTemporaryDrawer() {
           dataLength={courseList.length} //This is important field to render the next data
           next={fetchData}
           hasMore={true}
-          // loader={<h4>Loading...</h4>}
+          loader={null}
           endMessage={
             <p style={{ textAlign: "center" }}>
               <b>Yay! You have seen it all</b>
