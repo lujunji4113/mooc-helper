@@ -7,6 +7,10 @@ const instance = axios.create({
 });
 
 instance.interceptors.request.use((config) => {
+  config.headers = {
+    ...config.headers,
+    "mob-token": localStorage.getItem("mob-token") ?? "",
+  };
   config.params = {
     ...config.params,
     "mob-token": localStorage.getItem("mob-token"),
