@@ -24,10 +24,12 @@ const GradientText = styled("span")<{
   WebkitTextFillColor: "transparent",
 }));
 
-const Home: NextPage<{ banner: string | null; bannerLink: string | null }> = (
-  props
-) => {
-  const { banner, bannerLink } = props;
+const Home: NextPage<{
+  banner: string | null;
+  bannerLink: string | null;
+  bannerLinkDescription: string | null;
+}> = (props) => {
+  const { banner, bannerLink, bannerLinkDescription } = props;
   const selectedCourse = useSelectedCourse();
   const scrollView = React.useRef<HTMLDivElement>(null);
   const questionList = useQuestionList();
@@ -108,7 +110,13 @@ const Home: NextPage<{ banner: string | null; bannerLink: string | null }> = (
     // }}
     >
       {/* <SideBar /> */}
-      {banner ? <Banner message={banner} link={bannerLink} /> : null}
+      {banner ? (
+        <Banner
+          message={banner}
+          link={bannerLink}
+          linkDescription={bannerLinkDescription}
+        />
+      ) : null}
       <AppHeader />
       <CourseDrawer />
       {renderContent()}
@@ -122,6 +130,7 @@ export const getStaticProps = () => {
     props: {
       banner: process.env.BANNER ?? null,
       bannerLink: process.env.BANNER_LINK ?? null,
+      bannerLinkDescription: process.env.BANNER_LINK_DESCRIPTION ?? null,
     }, // will be passed to the page component as props
   };
 };

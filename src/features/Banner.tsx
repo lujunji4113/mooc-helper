@@ -5,9 +5,10 @@ import Link from "@/components/Link";
 interface BannerProps {
   message: string;
   link: string | null;
+  linkDescription: string | null;
 }
 
-const Banner: React.FC<BannerProps> = ({ message, link }) => {
+const Banner: React.FC<BannerProps> = ({ message, link, linkDescription }) => {
   return (
     <Typography
       fontWeight="medium"
@@ -38,7 +39,7 @@ const Banner: React.FC<BannerProps> = ({ message, link }) => {
             "&:hover": { color: "grey.200" },
           }}
         >
-          查看详情 →
+          {linkDescription ?? "查看详情"} →
         </Link>
       ) : null}
     </Typography>

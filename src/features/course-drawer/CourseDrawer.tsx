@@ -29,8 +29,8 @@ export default function SwipeableTemporaryDrawer() {
 
       if (status.code === 0) {
         const { pagination, result } = results;
-        const { pageIndex, pageSize } = pagination;
-        setPageSize(pageSize);
+        const { pageIndex, totlePageCount } = pagination;
+        setPageSize(totlePageCount);
         setPage(pageIndex + 1);
         setCourseList([...courseList, ...result]);
       }
@@ -99,10 +99,10 @@ export default function SwipeableTemporaryDrawer() {
             onKeyDown={toggleDrawer("right", false)}
           >
             <List>
-              {courseList.map((course) => (
+              {courseList.map((course, index) => (
                 <ListItem
                   button
-                  key={course.id}
+                  key={course.id + index}
                   onClick={() => handleSelectCourse(course)}
                 >
                   <CourseCard course={course} />
