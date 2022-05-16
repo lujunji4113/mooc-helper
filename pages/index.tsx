@@ -2,6 +2,7 @@ import type { NextPage } from "next";
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
+import Banner from "@/features/Banner";
 import { AppHeader } from "@/features/header";
 import { CourseDrawer, useSelectedCourse } from "@/features/course-drawer";
 import { CourseTreeView } from "@/features/chapter-tree-view";
@@ -23,7 +24,10 @@ const GradientText = styled("span")<{
   WebkitTextFillColor: "transparent",
 }));
 
-const Home: NextPage = () => {
+const Home: NextPage<{ banner: string | null; bannerLink: string | null }> = (
+  props
+) => {
+  const { banner, bannerLink } = props;
   const selectedCourse = useSelectedCourse();
   const scrollView = React.useRef<HTMLDivElement>(null);
   const questionList = useQuestionList();
@@ -104,12 +108,22 @@ const Home: NextPage = () => {
     // }}
     >
       {/* <SideBar /> */}
+      {banner ? <Banner message={banner} link={bannerLink} /> : null}
       <AppHeader />
       <CourseDrawer />
       {renderContent()}
       <Message />
     </Box>
   );
+};
+
+export const getStaticProps = () => {
+  return {
+    props: {
+      banner: process.env.BANNER ?? null,
+      bannerLink: process.env.BANNER_LINK ?? null,
+    }, // will be passed to the page component as props
+  };
 };
 
 export default Home;
