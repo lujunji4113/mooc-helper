@@ -1,10 +1,10 @@
-import type { CompletionQuestion } from "../interface";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { strToElement } from "@/utils";
+import htmr from "htmr";
+import { transform } from "@/features/htmr";
 
 interface CompletionProps {
-  question: CompletionQuestion;
+  question: ObjectiveQ;
 }
 
 const Completion: React.FC<CompletionProps> = ({ question }) => {
@@ -34,14 +34,16 @@ const Completion: React.FC<CompletionProps> = ({ question }) => {
         fontWeight="bold"
         display="block"
       >
-        {strToElement(question.title)}
+        {htmr(question.title, { transform })}
       </Typography>
       <Typography
         sx={{
           mt: 2,
         }}
       >
-        {question.stdAnswer.replace(/##%_YZPRLFH_%##/g, "或者")}
+        {htmr(question.stdAnswer.replace(/##%_YZPRLFH_%##/g, "或者"), {
+          transform,
+        })}
       </Typography>
     </Box>
   );

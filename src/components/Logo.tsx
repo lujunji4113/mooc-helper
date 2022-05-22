@@ -1,21 +1,26 @@
-import { styled } from "@mui/material/styles";
+import Link from "next/link";
+import Box from "@mui/material/Box";
+import SvgIcon from "@mui/material/SvgIcon";
 
-const Svg = styled("svg")({});
-
-const SvgLogo: React.FC = () => {
+function LogoIcon() {
   return (
-    <Svg
-      xmlns="http://www.w3.org/2000/svg"
-      width={36}
-      height={32}
-      viewBox="0 0 1024 1024"
-    >
+    <SvgIcon width={36} height={32} viewBox="0 0 1024 1024">
       <path
         d="M507.904 391.168q-72.704 0-129.024-16.896t-86.016-33.28q-1.024-1.024-1.024-5.12l0-8.192q0-2.048 0.512-0.512t0.512 13.824l0 523.264-115.712 0 0-614.4q0-20.48 7.168-43.52t34.816-34.304q14.336-6.144 28.16-4.608t24.576 6.144 18.432 10.24 10.752 7.68q19.456 15.36 39.936 28.672t44.544 24.064 53.76 16.896 67.584 6.144l4.096 0 1.024 0 4.096 0q37.888 0 67.584-6.144t54.272-16.896 45.056-24.064 38.912-28.672q3.072-2.048 10.752-7.68t18.944-10.24 25.088-6.144 28.16 4.608q26.624 11.264 34.304 34.304t7.68 43.52l0 614.4-116.736 0 0-523.264q0-12.288 1.024-13.312 1.024 3.072 0.512 7.68t-1.536 5.632q-14.336 8.192-36.864 16.896t-50.688 16.384-60.928 12.288-66.56 4.608l-7.168 0z"
         fill="#007FFF"
       ></path>
-    </Svg>
+    </SvgIcon>
   );
-};
+}
 
-export default SvgLogo;
+export default function Logo() {
+  return (
+    <Box sx={{ lineHeight: 0, mr: 2 }}>
+      <Link href="/">
+        <a>
+          <LogoIcon />
+        </a>
+      </Link>
+    </Box>
+  );
+}

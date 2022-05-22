@@ -1,14 +1,14 @@
-import type { SingleChoiceQuestion, OptionDto } from "../interface";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import { strToElement } from "@/utils";
+import htmr from "htmr";
+import { transform } from "@/features/htmr";
 
 interface SingleChoiceProps {
-  question: SingleChoiceQuestion;
+  question: ObjectiveQ;
 }
 
 const SingleChoice: React.FC<SingleChoiceProps> = ({ question }) => {
@@ -38,7 +38,7 @@ const SingleChoice: React.FC<SingleChoiceProps> = ({ question }) => {
         fontWeight="bold"
         display="block"
       >
-        {strToElement(question.title)}
+        {htmr(question.title, { transform })}
       </Typography>
       <FormControl>
         <RadioGroup
@@ -52,7 +52,11 @@ const SingleChoice: React.FC<SingleChoiceProps> = ({ question }) => {
               key={optionDto.id}
               value={optionDto.id}
               control={<Radio />}
-              label={<Typography>{strToElement(optionDto.content)}</Typography>}
+              label={
+                <Typography>
+                  {htmr(optionDto.content, { transform })}
+                </Typography>
+              }
             />
           ))}
         </RadioGroup>

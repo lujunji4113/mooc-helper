@@ -1,6 +1,6 @@
 {
   "name": "mooc-helper",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "private": false,
   "scripts": {
     "dev": "next dev",
@@ -16,15 +16,13 @@
     "@mui/material": "^5.5.0",
     "@mui/utils": "^5.4.4",
     "axios": "^0.26.1",
-    "clear-style": "^0.2.1",
     "clsx": "^1.1.1",
-    "html-react-parser": "^1.4.10",
-    "htmlparser2": "^7.2.0",
+    "htmr": "^1.0.1",
+    "http-proxy-middleware": "^2.0.6",
+    "mooc-helper": "link:",
     "next": "12.1.6",
-    "next-http-proxy-middleware": "^1.2.4",
     "react": "18.1.0",
     "react-dom": "18.1.0",
-    "react-infinite-scroll-component": "^6.1.0",
     "recoil": "^0.6.1"
   },
   "devDependencies": {

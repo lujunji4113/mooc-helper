@@ -3,12 +3,14 @@ import Typography from "@mui/material/Typography";
 import Link from "@/components/Link";
 
 interface BannerProps {
-  message: string;
+  message: string | null;
   link: string | null;
   linkDescription: string | null;
 }
 
 const Banner: React.FC<BannerProps> = ({ message, link, linkDescription }) => {
+  if (!message) return null;
+
   return (
     <Typography
       fontWeight="medium"
@@ -29,7 +31,6 @@ const Banner: React.FC<BannerProps> = ({ message, link, linkDescription }) => {
       {message}
       {link ? (
         <Link
-          // href={ROUTES.careers} // Fix me!
           href={link}
           target="_blank"
           sx={{

@@ -1,1 +1,4 @@
-export { SideBar } from "./SideBar";
+import AppHeader from "./AppHeader";
+import Banner from "./Banner";
+
+export { AppHeader, Banner };

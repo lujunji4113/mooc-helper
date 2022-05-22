@@ -1,14 +1,14 @@
-import type { MultipleChoiceQuestion } from "../interface";
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
 import FormControl from "@mui/material/FormControl";
 import FormGroup from "@mui/material/FormGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
-import { strToElement } from "@/utils";
+import htmr from "htmr";
+import { transform } from "@/features/htmr";
 
 interface MultipleChoiceProps {
-  question: MultipleChoiceQuestion;
+  question: ObjectiveQ;
 }
 
 const MultipleChoice: React.FC<MultipleChoiceProps> = ({ question }) => {
@@ -38,7 +38,7 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ question }) => {
         fontWeight="bold"
         display="block"
       >
-        {strToElement(question.title)}
+        {htmr(question.title, { transform })}
       </Typography>
       <FormControl>
         <FormGroup>
@@ -46,7 +46,11 @@ const MultipleChoice: React.FC<MultipleChoiceProps> = ({ question }) => {
             <FormControlLabel
               key={optionDto.id}
               control={<Checkbox checked={optionDto.answer} />}
-              label={<Typography>{strToElement(optionDto.content)}</Typography>}
+              label={
+                <Typography>
+                  {htmr(optionDto.content, { transform })}
+                </Typography>
+              }
             />
           ))}
         </FormGroup>

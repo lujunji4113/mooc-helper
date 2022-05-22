@@ -1,101 +1,46 @@
-import type { Chapter } from "./interface";
-import type { Theme } from "@mui/material";
 import * as React from "react";
-
 import TreeView from "@mui/lab/TreeView";
 import KeyboardArrowDownRounded from "@mui/icons-material/KeyboardArrowDownRounded";
 import KeyboardArrowUpRounded from "@mui/icons-material/KeyboardArrowUpRounded";
 import CustomTreeItem from "./CustomTreeItem";
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { courseLearn } from "@/api";
+import { selectedContentState, selectedCourseState } from "@/features/course";
+import { messageState } from "@/features/message";
 
-import useMediaQuery from "@mui/material/useMediaQuery";
-import { useSelectedCourse } from "@/features/course-drawer";
-import { useSetQuestionList } from "@/features/paper";
-import { useSetHomeworkList } from "@/features/homework";
-
-import axios from "axios";
-
-export default function CourseTreeView() {
+export default function ChapterTreeView() {
   const [expanded, setExpanded] = React.useState<string[]>([]);
   const [selected, setSelected] = React.useState<string[]>([]);
   const [chapters, setChapters] = React.useState<Chapter[]>([]);
 
-  const selectedCourse = useSelectedCourse();
-  const setQuestionList = useSetQuestionList();
-  const setHomeworkList = useSetHomeworkList();
+  const selectedCourse = useRecoilValue(selectedCourseState);
+  const setSelectedContent = useSetRecoilState(selectedContentState);
+  const setMessage = useSetRecoilState(messageState);
 
-  const matches = useMediaQuery((theme: Theme) => theme.breakpoints.up("md"));
-  React.useEffect(() => {
-    if (!matches) {
-      setExpanded([]);
-    } else {
-      if (selectedCourse) {
-        setExpanded([
-          String(selectedCourse?.id),
-          ...chapters.map((chapter) => String(chapter.id)),
-        ]);
+  const handleSelectedCourseChange = React.useCallback(
+    async (course: Course | null) => {
+      if (course) {
+        const { status, results } = await courseLearn(
+          course.id,
+          course.currentTermId
+        );
+        if (status.code === 0) {
+          setChapters(results.termDto.chapters);
+        } else {
+          setMessage({
+            show: true,
+            msg: status.message,
+          });
+        }
       }
-    }
-  }, [matches]);
-
-  const handleQuizClick = async (contentId: number) => {
-    if (!matches) {
-      setExpanded([]);
-    }
-    const res = await axios({
-      method: "GET",
-      url: "https://qckftx.api.cloudendpoint.cn/getPaper",
-      params: {
-        testId: contentId,
-        "mob-token": localStorage.getItem("mob-token") ?? "",
-      },
-    });
-    if (res.data.status.code === 0) {
-      setQuestionList(res.data.results.mocPaperDto.objectiveQList);
-      setHomeworkList([]);
-    }
-  };
-
-  const handleHomeworkClick = async (contentId: number) => {
-    if (!matches) {
-      setExpanded([]);
-    }
-    const res = await axios({
-      method: "GET",
-      url: "https://qckftx.api.cloudendpoint.cn/getHomework",
-      params: {
-        tid: contentId,
-        "mob-token": localStorage.getItem("mob-token") ?? "",
-      },
-    });
-    if (res.data.status.code === 0) {
-      setHomeworkList(res.data.results.mocPaperDto.subjectiveQList);
-      setQuestionList([]);
-    }
-  };
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   React.useEffect(() => {
-    setHomeworkList([]);
-    setQuestionList([]);
-  }, [selectedCourse]);
-
-  React.useEffect(() => {
-    if (selectedCourse) {
-      axios({
-        method: "GET",
-        url: "https://qckftx.api.cloudendpoint.cn/getCourseChapters",
-        params: {
-          courseId: selectedCourse.id,
-          termId: selectedCourse.currentTermId,
-          "mob-token": localStorage.getItem("mob-token") ?? "",
-        },
-      }).then(({ data }) => {
-        setChapters(data);
-        setExpanded([
-          String(selectedCourse.id),
-          ...data.map((chapter: Chapter) => String(chapter.id)),
-        ]);
-      });
-    }
+    handleSelectedCourseChange(selectedCourse);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedCourse]);
 
   return (
@@ -108,7 +53,7 @@ export default function CourseTreeView() {
         <KeyboardArrowDownRounded sx={{ fontSize: 16, color: "grey.600" }} />
       }
       defaultEndIcon={<div style={{ width: 24 }} />}
-      sx={{ p: 1, overflowY: "auto" }}
+      sx={{ py: 1, overflowY: "auto" }}
       expanded={expanded}
       selected={selected}
       onNodeToggle={(_: React.SyntheticEvent<Element, Event>, nodeIds) =>
@@ -131,25 +76,34 @@ export default function CourseTreeView() {
               nodeId={String(chapter.id)}
               label={chapter.name}
             >
-              {chapter.homeworks.map((homework) => (
+              {chapter.homeworks?.map((homework) => (
                 <CustomTreeItem
                   key={homework.contentId}
                   nodeId={String(homework.contentId)}
                   label={homework.name}
                   ContentProps={{
                     lastNestedChild: true,
-                    onClick: () => handleHomeworkClick(homework.contentId),
+                    onClick: () =>
+                      setSelectedContent({
+                        type: "homework",
+                        contentId: homework.contentId,
+                      }),
                   }}
                 />
               ))}
-              {chapter.quizs.map((quiz) => (
+              {chapter.quizs?.map((quiz) => (
                 <CustomTreeItem
                   key={quiz.contentId}
                   nodeId={String(quiz.contentId)}
                   label={quiz.name}
                   ContentProps={{
                     lastNestedChild: true,
-                    onClick: () => handleQuizClick(quiz.contentId),
+                    onClick: () => {
+                      setSelectedContent({
+                        type: "quiz",
+                        contentId: quiz.contentId,
+                      });
+                    },
                   }}
                 />
               ))}

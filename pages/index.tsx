@@ -1,18 +1,33 @@
 import type { NextPage } from "next";
 import * as React from "react";
+import Container from "@mui/material/Container";
 import Box from "@mui/material/Box";
+import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import Banner from "@/features/Banner";
-import { AppHeader } from "@/features/header";
-import { CourseDrawer, useSelectedCourse } from "@/features/course-drawer";
-import { CourseTreeView } from "@/features/chapter-tree-view";
-import { Paper } from "@/features/paper";
-import { Homework } from "@/features/homework";
-import { Message } from "@/features/message";
+import Tooltip from "@mui/material/Tooltip";
+import IconButton from "@mui/material/IconButton";
+import GitHubIcon from "@mui/icons-material/GitHub";
+import Logo from "@/components/Logo";
+import { Banner, AppHeader } from "@/features/layout";
+import Settings from "@/features/settings";
+import {
+  countState,
+  courseListState,
+  recentCourseListState,
+  selectedCourseState,
+  CourseCard,
+  selectedContentState,
+} from "@/features/course";
+import { Message, messageState } from "@/features/message";
+import { useSetRecoilState, useRecoilState, useRecoilValue } from "recoil";
+import { CourseDrawer } from "@/features/course";
 import { styled } from "@mui/material/styles";
-// import { SideBar } from "@/features/layout";
-import { useQuestionList } from "@/features/paper/recoil";
-import { useHomeworkList } from "@/features/homework/recoil";
+import { getAllMyCourseList, homeworkPaperDto, paperDetail } from "@/api";
+import { PSIZE } from "@/constants";
+import { ChapterTreeView } from "@/features/chapter-tree-view";
+import Homework from "@/features/homework";
+import Paper from "@/features/paper";
+
 const GradientText = styled("span")<{
   color?: "primary" | "error" | "success" | "warning";
 }>(({ theme, color = "primary" }) => ({
@@ -29,99 +44,193 @@ const Home: NextPage<{
   bannerLink: string | null;
   bannerLinkDescription: string | null;
 }> = (props) => {
-  const { banner, bannerLink, bannerLinkDescription } = props;
-  const selectedCourse = useSelectedCourse();
-  const scrollView = React.useRef<HTMLDivElement>(null);
-  const questionList = useQuestionList();
-  const homeworkList = useHomeworkList();
+  const [courseList, setCourseList] = useRecoilState(courseListState);
+  const [recentCourseList, setRecentCourseList] = useRecoilState(
+    recentCourseListState
+  );
+  const [selectedCourse, setSelectedCourse] =
+    useRecoilState(selectedCourseState);
+  const [mocPaperDto, setMocPaperDto] = React.useState<MocPaperDto>({
+    objectiveQList: [],
+    subjectiveQList: [],
+  });
+  const setCount = useSetRecoilState(countState);
+  const setMessage = useSetRecoilState(messageState);
+  const selectedContent = useRecoilValue(selectedContentState);
+
+  const paperRef = React.useRef<HTMLDivElement>(null);
+
+  const selectCourse = React.useCallback((course: Course) => {
+    setSelectedCourse(course);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  const updateMocPaperDto = React.useCallback(
+    async (
+      fetcher: (
+        contentId: number
+      ) => Promise<Result<{ mocPaperDto: MocPaperDto }>>,
+      contentId: number
+    ) => {
+      const { status, results } = await fetcher(contentId);
+      if (status.code === 0) {
+        setMocPaperDto(results.mocPaperDto);
+        if (paperRef.current) {
+          paperRef.current.scrollTop = 0;
+        }
+      } else {
+        setMessage({
+          show: true,
+          msg: status.message,
+        });
+      }
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    []
+  );
 
   React.useEffect(() => {
-    if (scrollView.current) {
-      scrollView.current.scrollTop = 0;
+    if (selectedContent?.type === "homework") {
+      updateMocPaperDto(homeworkPaperDto, selectedContent.contentId);
     }
-  }, [questionList, homeworkList]);
+    if (selectedContent?.type === "quiz") {
+      updateMocPaperDto(paperDetail, selectedContent.contentId);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [selectedContent]);
 
-  const renderContent = () => {
-    if (!selectedCourse) {
-      return (
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "center",
-            textAlign: "center",
-          }}
-        >
-          <Box>
-            <Typography variant="h1" sx={{ my: 2, maxWidth: 500 }}>
-              The Mooc <GradientText>&nbsp;helper</GradientText> you always
-              wanted
-            </Typography>
-            <Typography color="text.secondary" sx={{ mb: 3, maxWidth: 500 }}>
-              查询中国大学MOOC(慕课)单元作业、单元测验答案
-            </Typography>
-          </Box>
-        </Box>
-      );
+  React.useEffect(() => {
+    setMocPaperDto({
+      subjectiveQList: [],
+      objectiveQList: [],
+    });
+  }, [selectedCourse]);
+
+  const whenReady = React.useCallback(async () => {
+    try {
+      if (courseList.length !== 0) return;
+      const { status, results } = await getAllMyCourseList(1, PSIZE);
+      if (status.code === 0) {
+        setCount(results.pagination.totlePageCount);
+        setCourseList(results.result);
+        setRecentCourseList(results.result);
+      } else {
+        setMessage({
+          show: true,
+          msg: status.message,
+        });
+      }
+    } catch (error) {
+      setMessage({
+        show: true,
+        msg: String(error),
+      });
     }
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: { xs: "column", sm: "column", md: "row", lg: "row" },
-          maxHeight: "calc(100vh - 99.5px)",
-        }}
-      >
-        <Box
-          sx={{
-            position: {
-              xs: "fixed",
-              sm: "fixed",
-              md: "relative",
-              lg: "relative",
-            },
-            width: { xs: "100%", sm: "100%", md: 300, lg: 300 },
-            backdropFilter: "blur(20px)",
-            zIndex: 1,
-            overflow: "auto",
-          }}
-        >
-          <CourseTreeView />
-        </Box>
-        <Box
-          ref={scrollView}
-          sx={{
-            flex: 1,
-            height: "calc(100vh - 99.5px)",
-            overflow: "auto",
-            marginTop: { xs: 5.4, sm: 5.4, md: 0, lg: 0 },
-          }}
-        >
-          <Paper />
-          <Homework />
-        </Box>
-      </Box>
-    );
-  };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
+    if (localStorage.getItem("mob-token") !== null) {
+      whenReady();
+    } else {
+      setMessage({
+        show: true,
+        msg: "MOB-TOKEN未设置!",
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
-    <Box
-    // sx={{
-    //   display: "flex",
-    // }}
-    >
-      {/* <SideBar /> */}
-      {banner ? (
-        <Banner
-          message={banner}
-          link={bannerLink}
-          linkDescription={bannerLinkDescription}
-        />
-      ) : null}
-      <AppHeader />
-      <CourseDrawer />
-      {renderContent()}
+    <>
+      <Banner
+        message={props.banner}
+        link={props.bannerLink}
+        linkDescription={props.bannerLinkDescription}
+      />
+      <AppHeader>
+        <Logo />
+        <Box sx={{ ml: "auto" }} />
+        <Stack direction="row" spacing={1}>
+          <CourseDrawer />
+          <Tooltip title="Github 存储库" enterDelay={300}>
+            <IconButton
+              component="a"
+              color="primary"
+              href="https://github.com/lujunji-xiaolu/mooc-helper"
+              target="_blank"
+              data-ga-event-category="header"
+              data-ga-event-action="github"
+            >
+              <GitHubIcon fontSize="small" />
+            </IconButton>
+          </Tooltip>
+          <Settings />
+        </Stack>
+      </AppHeader>
+      <Container>
+        {recentCourseList.length === 0 && (
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              textAlign: "center",
+            }}
+          >
+            <Box>
+              <Typography variant="h1" sx={{ my: 2, maxWidth: 500 }}>
+                The MOOC <GradientText>&nbsp;Helper</GradientText> you always
+                wanted
+              </Typography>
+              <Typography color="text.secondary" sx={{ mb: 3, maxWidth: 500 }}>
+                查询中国大学MOOC(慕课)单元作业、单元测验答案
+              </Typography>
+            </Box>
+          </Box>
+        )}
+        {recentCourseList.length > 0 && selectedCourse === null && (
+          <>
+            <Typography sx={{ px: 2.5, pt: 2 }}>最近查看</Typography>
+            <Box sx={{ display: "flex", flexWrap: "wrap" }}>
+              {recentCourseList.map((course) => (
+                <CourseCard
+                  key={course.id}
+                  width={300}
+                  course={course}
+                  onClick={selectCourse}
+                />
+              ))}
+            </Box>
+          </>
+        )}
+        {selectedCourse !== null && (
+          <Box
+            sx={{
+              display: "flex",
+              height: "calc(100vh - 56px)",
+            }}
+          >
+            <Box
+              sx={{
+                width: 300,
+                height: "100%",
+                overflow: "auto",
+              }}
+            >
+              <ChapterTreeView />
+            </Box>
+            <Box
+              ref={paperRef}
+              sx={{ flex: 1, height: "100%", overflow: "auto" }}
+            >
+              <Homework mocPaperDto={mocPaperDto} />
+              <Paper mocPaperDto={mocPaperDto} />
+            </Box>
+          </Box>
+        )}
+      </Container>
       <Message />
-    </Box>
+    </>
   );
 };
 

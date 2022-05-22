@@ -1,16 +1,19 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import { useHomeworkList } from "./recoil";
-import { strToElement } from "@/utils";
+import htmr from "htmr";
+import { transform } from "../htmr";
 
-const Homework: React.FC = () => {
-  const homeworkList = useHomeworkList();
+export default function Homework({
+  mocPaperDto,
+}: {
+  mocPaperDto: MocPaperDto;
+}) {
   return (
     <Box>
-      {homeworkList.map((homework) => {
+      {mocPaperDto.subjectiveQList.map((subjectiveQ) => {
         return (
           <Box
-            key={homework.id}
+            key={subjectiveQ.id}
             component="span"
             sx={{
               display: "flex",
@@ -38,7 +41,7 @@ const Homework: React.FC = () => {
                 fontWeight="bold"
                 display="block"
               >
-                {strToElement(homework.title)}
+                {htmr(subjectiveQ.title, { transform })}
               </Typography>
 
               <Typography
@@ -46,12 +49,12 @@ const Homework: React.FC = () => {
                   mt: 2,
                 }}
               >
-                {homework.judgeDtos.map((judgeDto) => (
+                {subjectiveQ.judgeDtos.map((judgeDto) => (
                   <span
                     style={{ display: "flex", flexDirection: "column" }}
                     key={judgeDto.id}
                   >
-                    {strToElement(judgeDto.msg)}
+                    {htmr(judgeDto.msg, { transform })}
                   </span>
                 ))}
               </Typography>
@@ -61,6 +64,4 @@ const Homework: React.FC = () => {
       })}
     </Box>
   );
-};
-
-export default Homework;
+}
