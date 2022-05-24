@@ -26,6 +26,9 @@ export default function ChapterTreeView() {
         );
         if (status.code === 0) {
           setChapters(results.termDto.chapters);
+          if (selectedCourse) {
+            setExpanded([String(selectedCourse.id)]);
+          }
         } else {
           setMessage({
             show: true,
@@ -35,7 +38,7 @@ export default function ChapterTreeView() {
       }
     },
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [selectedCourse]
   );
 
   React.useEffect(() => {
