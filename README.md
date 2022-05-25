@@ -14,9 +14,7 @@
 
 需要通过抓包工具获取你的 `mob-token`
 
-<video style="height: 400px;">
-      <source src="./public/instructions.mp4" type="video/mp4">
-</video>
+https://user-images.githubusercontent.com/95520590/170272233-b43614b8-e3bb-4111-a5c7-d54df0209d4e.mp4
 
 ## 注意事项
 
