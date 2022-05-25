@@ -14,6 +14,10 @@
 
 需要通过抓包工具获取你的 `mob-token`
 
+<video style="height: 400px;">
+      <source src="./public/instructions.mp4" type="video/mp4">
+</videos>
+
 ## 注意事项
 
 - 题目排列顺序、答案排列顺序可能存在差异
