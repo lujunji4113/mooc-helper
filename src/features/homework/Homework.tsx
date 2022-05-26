@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import htmr from "htmr";
-import { transform } from "../htmr";
+import HTML from "@/components/HTML";
 
 export default function Homework({
   mocPaperDto,
@@ -41,7 +40,8 @@ export default function Homework({
                 fontWeight="bold"
                 display="block"
               >
-                {htmr(subjectiveQ.title, { transform })}
+                {/* {htmr(subjectiveQ.title, { transform })} */}
+                <HTML html={subjectiveQ.title} />
               </Typography>
 
               <Typography
@@ -54,7 +54,7 @@ export default function Homework({
                     style={{ display: "flex", flexDirection: "column" }}
                     key={judgeDto.id}
                   >
-                    {htmr(judgeDto.msg, { transform })}
+                    <HTML html={judgeDto.msg} />
                   </span>
                 ))}
               </Typography>

@@ -75,9 +75,6 @@ const Home: NextPage<{
       const { status, results } = await fetcher(contentId);
       if (status.code === 0) {
         setMocPaperDto(results.mocPaperDto);
-        if (paperRef.current) {
-          paperRef.current.scrollTop = 0;
-        }
       } else {
         setMessage({
           show: true,
@@ -90,6 +87,9 @@ const Home: NextPage<{
   );
 
   React.useEffect(() => {
+    if (paperRef.current) {
+      paperRef.current.scrollTop = 0;
+    }
     if (selectedContent?.type === "homework") {
       updateMocPaperDto(homeworkPaperDto, selectedContent.contentId);
     }

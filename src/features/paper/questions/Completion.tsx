@@ -1,7 +1,6 @@
 import Box from "@mui/material/Box";
 import Typography from "@mui/material/Typography";
-import htmr from "htmr";
-import { transform } from "@/features/htmr";
+import HTML from "@/components/HTML";
 
 interface CompletionProps {
   question: ObjectiveQ;
@@ -34,16 +33,14 @@ const Completion: React.FC<CompletionProps> = ({ question }) => {
         fontWeight="bold"
         display="block"
       >
-        {htmr(question.title, { transform })}
+        <HTML html={question.title} />
       </Typography>
       <Typography
         sx={{
           mt: 2,
         }}
       >
-        {htmr(question.stdAnswer.replace(/##%_YZPRLFH_%##/g, "或者"), {
-          transform,
-        })}
+        <HTML html={question.stdAnswer.replace(/##%_YZPRLFH_%##/g, "或者")} />
       </Typography>
     </Box>
   );

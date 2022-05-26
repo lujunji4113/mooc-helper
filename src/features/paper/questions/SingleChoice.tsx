@@ -4,8 +4,7 @@ import FormControl from "@mui/material/FormControl";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Radio from "@mui/material/Radio";
-import htmr from "htmr";
-import { transform } from "@/features/htmr";
+import HTML from "@/components/HTML";
 
 interface SingleChoiceProps {
   question: ObjectiveQ;
@@ -38,7 +37,7 @@ const SingleChoice: React.FC<SingleChoiceProps> = ({ question }) => {
         fontWeight="bold"
         display="block"
       >
-        {htmr(question.title, { transform })}
+        <HTML html={question.title} />
       </Typography>
       <FormControl>
         <RadioGroup
@@ -54,7 +53,7 @@ const SingleChoice: React.FC<SingleChoiceProps> = ({ question }) => {
               control={<Radio />}
               label={
                 <Typography>
-                  {htmr(optionDto.content, { transform })}
+                  <HTML html={optionDto.content} />
                 </Typography>
               }
             />
