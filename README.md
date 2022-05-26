@@ -16,7 +16,7 @@
 
 https://user-images.githubusercontent.com/95520590/170272233-b43614b8-e3bb-4111-a5c7-d54df0209d4e.mp4
 
-1. 点击网站右上角**设置按钮**，将获取的`mob-token`粘贴到**MOB_TOKEN输入框**中。然后关闭设置，等待片刻。
+2. 点击网站右上角**设置按钮**，将获取的`mob-token`粘贴到**MOB_TOKEN输入框**中。然后关闭设置，等待片刻。
 
 ## 注意事项
 
