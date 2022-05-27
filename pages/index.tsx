@@ -207,15 +207,21 @@ const Home: NextPage<{
           <Box
             sx={{
               display: "flex",
+              flexDirection: { xs: "column", lg: "row", xl: "row" },
               height: "calc(100vh - 56px)",
             }}
           >
             <Box
-              sx={{
-                width: 300,
-                height: "100%",
+              sx={(theme) => ({
+                width: { xs: "100%", lg: 300, xl: 300 },
                 overflow: "auto",
-              }}
+                zIndex: 1,
+                backgroundColor:
+                  theme.palette.mode === "dark"
+                    ? theme.palette.primaryDark[900]
+                    : "rgba(255,255,255)",
+                // backdropFilter: "blur(20px)",
+              })}
             >
               <ChapterTreeView />
             </Box>
