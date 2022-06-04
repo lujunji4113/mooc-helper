@@ -110,6 +110,36 @@ export default function ChapterTreeView() {
                   }}
                 />
               ))}
+              {chapter.exam && (
+                <CustomTreeItem
+                  key={chapter.exam.objectTestVo.id}
+                  nodeId={String(chapter.exam.objectTestVo.id)}
+                  label={chapter.exam.objectTestVo.name}
+                  ContentProps={{
+                    lastNestedChild: true,
+                    onClick: () =>
+                      setSelectedContent({
+                        type: "quiz",
+                        contentId: chapter.exam.objectTestVo.id,
+                      }),
+                  }}
+                />
+              )}
+              {chapter.exam && (
+                <CustomTreeItem
+                  key={chapter.exam.subjectTestVo.id}
+                  nodeId={String(chapter.exam.subjectTestVo.id)}
+                  label={chapter.exam.subjectTestVo.name}
+                  ContentProps={{
+                    lastNestedChild: true,
+                    onClick: () =>
+                      setSelectedContent({
+                        type: "homework",
+                        contentId: chapter.exam.subjectTestVo.id,
+                      }),
+                  }}
+                />
+              )}
             </CustomTreeItem>
           ))}
         </CustomTreeItem>

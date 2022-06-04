@@ -31,6 +31,16 @@ interface Chapter {
     contentId: number;
     name: string;
   }[];
+  exam: {
+    objectTestVo: {
+      id: number;
+      name: string;
+    };
+    subjectTestVo: {
+      id: number;
+      name: string;
+    };
+  };
 }
 
 interface Content {
