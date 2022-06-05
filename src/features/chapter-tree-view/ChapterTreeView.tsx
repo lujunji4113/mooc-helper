@@ -110,7 +110,7 @@ export default function ChapterTreeView() {
                   }}
                 />
               ))}
-              {chapter.exam && (
+              {chapter.exam?.objectTestVo && (
                 <CustomTreeItem
                   key={chapter.exam.objectTestVo.id}
                   nodeId={String(chapter.exam.objectTestVo.id)}
@@ -125,7 +125,7 @@ export default function ChapterTreeView() {
                   }}
                 />
               )}
-              {chapter.exam && (
+              {chapter.exam?.subjectTestVo && (
                 <CustomTreeItem
                   key={chapter.exam.subjectTestVo.id}
                   nodeId={String(chapter.exam.subjectTestVo.id)}
