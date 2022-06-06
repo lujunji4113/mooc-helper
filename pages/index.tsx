@@ -72,21 +72,27 @@ const Home: NextPage<{
       ) => Promise<Result<{ mocPaperDto: MocPaperDto }>>,
       contentId: number
     ) => {
-      const { status, results } = await fetcher(contentId);
-      if (paperRef.current) {
-        paperRef.current.scrollTop = 0;
-      }
-      if (status.code === 0) {
-        setMocPaperDto(results.mocPaperDto);
-      } else {
+      try {
+        const { status, results } = await fetcher(contentId);
+        if (paperRef.current) {
+          paperRef.current.scrollTop = 0;
+        }
+        if (status.code === 0) {
+          setMocPaperDto(results.mocPaperDto);
+        } else {
+          setMessage({
+            show: true,
+            msg: status.message,
+          });
+        }
+      } catch (error) {
         setMessage({
           show: true,
-          msg: status.message,
+          msg: String(error),
         });
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    []
+    [setMessage]
   );
 
   React.useEffect(() => {

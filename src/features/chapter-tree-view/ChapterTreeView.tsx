@@ -20,19 +20,26 @@ export default function ChapterTreeView() {
   const handleSelectedCourseChange = React.useCallback(
     async (course: Course | null) => {
       if (course) {
-        const { status, results } = await courseLearn(
-          course.id,
-          course.currentTermId
-        );
-        if (status.code === 0) {
-          setChapters(results.termDto.chapters);
-          if (selectedCourse) {
-            setExpanded([String(selectedCourse.id)]);
+        try {
+          const { status, results } = await courseLearn(
+            course.id,
+            course.currentTermId
+          );
+          if (status.code === 0) {
+            setChapters(results.termDto.chapters);
+            if (selectedCourse) {
+              setExpanded([String(selectedCourse.id)]);
+            }
+          } else {
+            setMessage({
+              show: true,
+              msg: status.message,
+            });
           }
-        } else {
+        } catch (error) {
           setMessage({
             show: true,
-            msg: status.message,
+            msg: String(error),
           });
         }
       }
