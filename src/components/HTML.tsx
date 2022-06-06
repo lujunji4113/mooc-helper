@@ -1,9 +1,14 @@
 import type { HTMLReactParserOptions, Element } from "html-react-parser";
 import * as React from "react";
-import Image from "next/image";
+// import Image from "next/image";
 import parse, { domToReact } from "html-react-parser";
 
-const regExp = /width: (?<width>[1-9]+)px; height: (?<height>[1-9]+)px;/;
+// const regExp = /width: (?<width>[1-9]+)px; height: (?<height>[1-9]+)px;/;
+
+// https://github.com/lujunji-xiaolu/mooc-helper/issues/10
+const rewriteAddressMap = new Map([
+  [/img[0-2]\.ph\.126\.net/g, "img-ph-mirror.nosdn.127.net"],
+]);
 
 const parseStyles = (styles: string = ""): { [key: string]: string } => {
   return styles
@@ -43,18 +48,22 @@ const options: HTMLReactParserOptions = {
         </span>
       );
     }
-    if (domNode.type === "tag" && (domNode as Element).tagName === "img") {
-      const { attribs } = domNode as Element;
-      const execArray = regExp.exec(attribs.style);
-      if (execArray && execArray.groups) {
-        const width = window.parseInt(execArray.groups.width, 10);
-        const height = window.parseInt(execArray.groups.height, 10);
-        return <Image src={attribs.src} alt="" width={width} height={height} />;
-      }
-    }
+    // if (domNode.type === "tag" && (domNode as Element).tagName === "img") {
+    //   const { attribs } = domNode as Element;
+    //   const execArray = regExp.exec(attribs.style);
+    //   if (execArray && execArray.groups) {
+    //     const width = window.parseInt(execArray.groups.width, 10);
+    //     const height = window.parseInt(execArray.groups.height, 10);
+    //     return <Image src={attribs.src} alt="" width={width} height={height} />;
+    //   }
+    // }
   },
 };
 
 export default function HTML({ html }: { html: string }) {
+  for (const [searchValue, replaceValue] of rewriteAddressMap) {
+    html = html.replaceAll(searchValue, replaceValue);
+  }
+
   return <>{parse(html, options)}</>;
 }
