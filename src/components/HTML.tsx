@@ -43,7 +43,7 @@ const options: HTMLReactParserOptions = {
     if (domNode.type === "tag" && (domNode as Element).tagName === "p") {
       const { attribs, children } = domNode as Element;
       return (
-        <span style={{ margin: "16px 0", ...parseStyles(attribs.style) }}>
+        <span style={{ display: "block", ...parseStyles(attribs.style) }}>
           {domToReact(children, options)}
         </span>
       );
