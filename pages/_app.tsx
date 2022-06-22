@@ -3,6 +3,12 @@ import type { AppProps } from "next/app";
 import Head from "next/head";
 import { RecoilRoot } from "recoil";
 import { BrandingProvider } from "@/features/theme";
+import browserClient from "@apmplus/web";
+
+browserClient("init", {
+  aid: 369721,
+});
+browserClient("start");
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
