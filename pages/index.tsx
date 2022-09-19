@@ -189,7 +189,7 @@ const Home: NextPage<{
                 wanted
               </Typography>
               <Typography color="text.secondary" sx={{ mb: 3, maxWidth: 500 }}>
-                查询中国大学MOOC(慕课)单元作业、单元测验答案
+                查询中国大学MOOC(慕课)单元测验、单元作业、期中/期末测试答案
               </Typography>
             </Box>
           </Box>

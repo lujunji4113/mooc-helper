@@ -1,3 +1,5 @@
 {
-  "cSpell.words": ["deepmerge", "Dtos", "psize"]
+  "files.autoSave": "onFocusChange",
+  "editor.formatOnSave": true,
+  "editor.tabSize": 2
 }
