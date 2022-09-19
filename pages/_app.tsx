@@ -19,11 +19,11 @@ function MyApp({ Component, pageProps }: AppProps) {
           <meta name="referrer" content="no-referrer" />
           <meta
             name="keywords"
-            content="mooc helper,查询中国大学MOOC(慕课),单元测验,单元作业答案"
+            content="慕课答案,中国大学慕课答案,中国大学MOOC(慕课)答案,mooc helper"
           />
           <meta
             name="description"
-            content="查询中国大学MOOC(慕课)单元测验,单元作业答案"
+            content="查询中国大学MOOC(慕课)单元测验、单元作业、期中/期末测试答案"
           />
           <link rel="icon" href="/favicon.ico" />
         </Head>
