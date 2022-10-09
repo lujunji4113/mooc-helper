@@ -59,7 +59,9 @@
     },
     "updater": {
       "active": true,
-      "endpoints": ["https://mooc-helper.vercel.app/update.json"],
+      "endpoints": [
+        "https://mooc-helper.vercel.app/api/update/{{target}}/{{current_version}}"
+      ],
       "dialog": true,
       "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDhCRERDQTgzN0JDQ0M2OTAKUldTUXhzeDdnOHJkaXlqYXhQdWlyUHJUMFo4bDEvN3B0WVNDU05EaGJUN3FzM3NDdUQyeVZJWGoK"
     },
