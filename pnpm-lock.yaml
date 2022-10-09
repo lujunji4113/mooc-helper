@@ -1,7 +1,6 @@
 lockfileVersion: 5.4
 
 specifiers:
-  '@apmplus/web': ^1.2.2
   '@babel/core': ^7.18.5
   '@emotion/react': ^11.8.2
   '@emotion/styled': ^11.8.1
@@ -11,15 +10,16 @@ specifiers:
   '@mui/utils': ^5.4.4
   '@tauri-apps/api': ^1.1.0
   '@tauri-apps/cli': ^1.1.1
+  '@types/lodash': ^4.14.186
   '@types/node': 17.0.21
   '@types/react': 17.0.40
-  axios: ^0.26.1
   clsx: ^1.1.1
   eslint: 8.11.0
   eslint-config-next: 12.1.0
   html-react-parser: ^1.4.12
   http-proxy-middleware: ^2.0.6
-  mooc-helper: 'link:'
+  ky: ^0.31.3
+  lodash: ^4.17.21
   next: 12.1.6
   react: 18.1.0
   react-dom: 18.1.0
@@ -27,7 +27,6 @@ specifiers:
   typescript: 4.6.2
 
 dependencies:
-  '@apmplus/web': 1.2.2
   '@babel/core': 7.18.5
   '@emotion/react': 11.9.0_2b63nvxbecokyydpzdffd7snl4
   '@emotion/styled': 11.8.1_w6s6znlgkswtoekum5zsta7cku
@@ -36,11 +35,11 @@ dependencies:
   '@mui/material': 5.8.1_xsqau75lxagie6mtqdljvf4u5e
   '@mui/utils': 5.8.0_react@18.1.0
   '@tauri-apps/api': 1.1.0
-  axios: 0.26.1
   clsx: 1.1.1
   html-react-parser: 1.4.13_react@18.1.0
   http-proxy-middleware: 2.0.6
-  mooc-helper: 'link:'
+  ky: 0.31.3
+  lodash: 4.17.21
   next: 12.1.6_5ovelu635kdjiiodz74uabvzfu
   react: 18.1.0
   react-dom: 18.1.0_react@18.1.0
@@ -48,6 +47,7 @@ dependencies:
 
 devDependencies:
   '@tauri-apps/cli': 1.1.1
+  '@types/lodash': 4.14.186
   '@types/node': 17.0.21
   '@types/react': 17.0.40
   eslint: 8.11.0
@@ -62,10 +62,6 @@ packages:
     dependencies:
       '@jridgewell/gen-mapping': 0.1.1
       '@jridgewell/trace-mapping': 0.3.13
-
-  /@apmplus/web/1.2.2:
-    resolution: {integrity: sha512-dfN/SoH4qK1paXJNuiKW8mrCo9W7nV8ZVglchUkSiD25lHlhenza4wOmdEMTlADeE647bObd6xxI2khjqqvQXw==}
-    dev: false
 
   /@babel/code-frame/7.16.7:
     resolution: {integrity: sha512-iAXqUn8IIeBTNd72xsFlgaXHkMBMt6y4HJp1tIaK465CWLT/fG1aqB7ykr95gHHmlBdGbFeWWfyB4NJJ0nmeIg==}
@@ -1001,6 +997,10 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
     dev: true
 
+  /@types/lodash/4.14.186:
+    resolution: {integrity: sha512-eHcVlLXP0c2FlMPm56ITode2AgLMSa6aJ05JTTbYbI+7EMkCEE5qk2E41d5g2lCVTqRe0GnnRFurmlCsDODrPw==}
+    dev: true
+
   /@types/node/17.0.21:
     resolution: {integrity: sha512-DBZCJbhII3r90XbQxI8Y9IjjiiOGlZ0Hr32omXIZvwwZ7p4DMMXGrKXVyPfuoBOri9XNtL0UK69jYIBIsRX3QQ==}
 
@@ -1192,14 +1192,6 @@ packages:
     resolution: {integrity: sha512-LVAaGp/wkkgYJcjmHsoKx4juT1aQvJyPcW09MLCjVTh3V2cc6PnyempiLMNH5iMdfIX/zdbjUx2KDjMLCTdPeA==}
     engines: {node: '>=12'}
     dev: true
-
-  /axios/0.26.1:
-    resolution: {integrity: sha512-fPwcX4EvnSHuInCMItEhAGnaSEXRBjtzh9fOtsE6E1G6p7vl7edEeZe11QHf18+6+9gR5PbKV/sGKNaD8YaMeA==}
-    dependencies:
-      follow-redirects: 1.15.1
-    transitivePeerDependencies:
-      - debug
-    dev: false
 
   /axobject-query/2.2.0:
     resolution: {integrity: sha512-Td525n+iPOOyUQIeBfcASuG6uJsDOITl7Mds5gFyerkWiX7qhUTdYUBlSgNMyVqtSJqwpt1kXGLdUt6SykLMRA==}
@@ -2265,6 +2257,11 @@ packages:
       object.assign: 4.1.2
     dev: true
 
+  /ky/0.31.3:
+    resolution: {integrity: sha512-YDDQKG0Lt4PFSPZGJI8WKAm5y+1ebbeA306am+4nT7riX13wjNVD5sR/QOKtgsaQaARwrdUHlv0M9kJ1qv+Jug==}
+    engines: {node: '>=14.16'}
+    dev: false
+
   /language-subtag-registry/0.3.21:
     resolution: {integrity: sha512-L0IqwlIXjilBVVYKFT37X9Ih11Um5NEl9cbJIuU/SwP/zEEAbBPOnEeeuxVMf45ydWQRDQN3Nqc96OgbH1K+Pg==}
     dev: true
@@ -2298,6 +2295,10 @@ packages:
   /lodash.merge/4.6.2:
     resolution: {integrity: sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==}
     dev: true
+
+  /lodash/4.17.21:
+    resolution: {integrity: sha512-v2kDEe57lecTulaDIuNTPy3Ry4gLGJ6Z1O3vE1krgXZNrsQ+LFTGHVxVjcXPs17LhbZVGedAJv8XZ1tvj5FvSg==}
+    dev: false
 
   /loose-envify/1.4.0:
     resolution: {integrity: sha512-lyuxPGr/Wfhrlem2CL/UcnUc1zcqKAImBDzukY7Y5F/yQiNdko6+fRLevlw1HgMySw7f611UIY408EtxRSoK3Q==}

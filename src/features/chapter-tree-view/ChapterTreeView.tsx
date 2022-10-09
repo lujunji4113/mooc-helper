@@ -4,7 +4,7 @@ import KeyboardArrowDownRounded from "@mui/icons-material/KeyboardArrowDownRound
 import KeyboardArrowUpRounded from "@mui/icons-material/KeyboardArrowUpRounded";
 import CustomTreeItem from "./CustomTreeItem";
 import { useRecoilValue, useSetRecoilState } from "recoil";
-import { courseLearn } from "@/api";
+import { courseInfo } from "@/api";
 import { selectedContentState, selectedCourseState } from "@/features/course";
 import { messageState } from "@/features/message";
 
@@ -21,7 +21,7 @@ export default function ChapterTreeView() {
     async (course: Course | null) => {
       if (course) {
         try {
-          const { status, results } = await courseLearn(
+          const { status, results } = await courseInfo(
             course.id,
             course.currentTermId
           );

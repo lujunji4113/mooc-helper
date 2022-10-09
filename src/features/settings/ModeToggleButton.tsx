@@ -7,6 +7,7 @@ import SettingsBrightnessIcon from "@mui/icons-material/SettingsBrightness";
 import { styled } from "@mui/material/styles";
 import { useRecoilState } from "recoil";
 import { modeState } from "@/features/theme";
+import store from "@/lib/store";
 
 const IconToggleButton = styled(ToggleButton)({
   display: "flex",
@@ -21,7 +22,7 @@ export default function ModeToggleButton() {
   const [mode, setMode] = useRecoilState(modeState);
 
   const changeMode = (_: any, value: "light" | "dark" | "system") => {
-    localStorage.setItem("mode", value);
+    store.set("mode", value);
     setMode(value);
   };
 

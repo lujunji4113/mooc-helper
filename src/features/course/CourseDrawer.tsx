@@ -8,8 +8,8 @@ import Pagination from "@mui/material/Pagination";
 import CourseCard from "@/features/course/CourseCard";
 import { useRecoilState, useRecoilValue, useSetRecoilState } from "recoil";
 import { countState, courseListState, selectedCourseState } from ".";
-import { getAllMyCourseList } from "@/api";
-import { PSIZE } from "@/constants";
+import { courseList as getCourseList } from "@/api";
+import { PAGE_SIZE } from "@/constants";
 import { messageState } from "@/features/message";
 
 export default function SwipeableTemporaryDrawer() {
@@ -25,7 +25,7 @@ export default function SwipeableTemporaryDrawer() {
     page: number
   ) => void = React.useCallback(async (_, page: number) => {
     try {
-      const { status, results } = await getAllMyCourseList(page, PSIZE);
+      const { status, results } = await getCourseList(page, PAGE_SIZE);
       if (status.code === 0) {
         setCourseList(results.result);
       } else {

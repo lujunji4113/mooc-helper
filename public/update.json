@@ -1,0 +1,11 @@
+{
+  "version": "v0.2.0",
+  "notes": "Test version",
+  "pub_date": "2022-10-09T10:52:24.326Z",
+  "platforms": {
+    "windows-x86_64": {
+      "signature": "",
+      "url": "https://github.com/xiaolu-lujunji/mooc-helper/releases/download/v0.1.0/mooc-helper_0.1.0_x64_en-US.msi"
+    }
+  }
+}

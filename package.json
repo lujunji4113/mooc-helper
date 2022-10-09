@@ -1,7 +1,8 @@
 {
   "name": "mooc-helper",
-  "version": "0.1.1",
+  "version": "0.1.0",
   "private": false,
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build && next export",
@@ -10,7 +11,6 @@
     "tauri": "tauri"
   },
   "dependencies": {
-    "@apmplus/web": "^1.2.2",
     "@babel/core": "^7.18.5",
     "@emotion/react": "^11.8.2",
     "@emotion/styled": "^11.8.1",
@@ -19,11 +19,11 @@
     "@mui/material": "^5.5.0",
     "@mui/utils": "^5.4.4",
     "@tauri-apps/api": "^1.1.0",
-    "axios": "^0.26.1",
     "clsx": "^1.1.1",
     "html-react-parser": "^1.4.12",
     "http-proxy-middleware": "^2.0.6",
-    "mooc-helper": "link:",
+    "ky": "^0.31.3",
+    "lodash": "^4.17.21",
     "next": "12.1.6",
     "react": "18.1.0",
     "react-dom": "18.1.0",
@@ -31,6 +31,7 @@
   },
   "devDependencies": {
     "@tauri-apps/cli": "^1.1.1",
+    "@types/lodash": "^4.14.186",
     "@types/node": "17.0.21",
     "@types/react": "17.0.40",
     "eslint": "8.11.0",

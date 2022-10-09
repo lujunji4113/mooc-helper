@@ -22,11 +22,13 @@ import { Message, messageState } from "@/features/message";
 import { useSetRecoilState, useRecoilState, useRecoilValue } from "recoil";
 import { CourseDrawer } from "@/features/course";
 import { styled } from "@mui/material/styles";
-import { getAllMyCourseList, homeworkPaperDto, paperDetail } from "@/api";
-import { PSIZE } from "@/constants";
 import { ChapterTreeView } from "@/features/chapter-tree-view";
 import Homework from "@/features/homework";
 import Paper from "@/features/paper";
+import { courseList as getCourseList, homework, test } from "@/api";
+import { PAGE_SIZE } from "@/constants";
+import { openExternal } from "@/utils";
+import store from "@/lib/store";
 
 const GradientText = styled("span")<{
   color?: "primary" | "error" | "success" | "warning";
@@ -97,10 +99,10 @@ const Home: NextPage<{
 
   React.useEffect(() => {
     if (selectedContent?.type === "homework") {
-      updateMocPaperDto(homeworkPaperDto, selectedContent.contentId);
+      updateMocPaperDto(homework, selectedContent.contentId);
     }
     if (selectedContent?.type === "quiz") {
-      updateMocPaperDto(paperDetail, selectedContent.contentId);
+      updateMocPaperDto(test, selectedContent.contentId);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [selectedContent]);
@@ -115,7 +117,7 @@ const Home: NextPage<{
   const whenReady = React.useCallback(async () => {
     try {
       if (courseList.length !== 0) return;
-      const { status, results } = await getAllMyCourseList(1, PSIZE);
+      const { status, results } = await getCourseList(1, PAGE_SIZE);
       if (status.code === 0) {
         setCount(results.pagination.totlePageCount);
         setCourseList(results.result);
@@ -136,14 +138,16 @@ const Home: NextPage<{
   }, []);
 
   React.useEffect(() => {
-    if (localStorage.getItem("mob-token") !== null) {
-      whenReady();
-    } else {
-      setMessage({
-        show: true,
-        msg: "MOB-TOKEN未设置!",
-      });
-    }
+    store.get("mob-token").then((storedMobToken) => {
+      if (storedMobToken !== null) {
+        whenReady();
+      } else {
+        setMessage({
+          show: true,
+          msg: "MOB-TOKEN未设置!",
+        });
+      }
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -163,10 +167,11 @@ const Home: NextPage<{
             <IconButton
               component="a"
               color="primary"
-              href="https://github.com/lujunji-xiaolu/mooc-helper"
-              target="_blank"
               data-ga-event-category="header"
               data-ga-event-action="github"
+              onClick={() =>
+                openExternal("https://github.com/xiaolu-lujunji/mooc-helper")
+              }
             >
               <GitHubIcon fontSize="small" />
             </IconButton>

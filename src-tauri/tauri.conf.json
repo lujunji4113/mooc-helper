@@ -11,7 +11,16 @@
     "version": "0.1.0"
   },
   "tauri": {
-    "allowlist": {},
+    "allowlist": {
+      "http": {
+        "request": true,
+        "scope": ["https://www.icourse163.org/*"]
+      },
+      "shell": {
+        "open": true,
+        "scope": []
+      }
+    },
     "bundle": {
       "active": true,
       "category": "DeveloperTool",
@@ -27,7 +36,7 @@
         "icons/icon.icns",
         "icons/icon.ico"
       ],
-      "identifier": "com.tauri.dev",
+      "identifier": "com.lujunji.mooc-helper",
       "longDescription": "",
       "macOS": {
         "entitlements": null,
@@ -49,15 +58,19 @@
       "csp": null
     },
     "updater": {
-      "active": false
+      "active": true,
+      "endpoints": ["https://mooc-helper.vercel.app/update.json"],
+      "dialog": true,
+      "pubkey": "dW50cnVzdGVkIGNvbW1lbnQ6IG1pbmlzaWduIHB1YmxpYyBrZXk6IDhCRERDQTgzN0JDQ0M2OTAKUldTUXhzeDdnOHJkaXlqYXhQdWlyUHJUMFo4bDEvN3B0WVNDU05EaGJUN3FzM3NDdUQyeVZJWGoK"
     },
     "windows": [
       {
         "fullscreen": false,
-        "height": 600,
+        "center": true,
+        "width": 1024,
+        "height": 768,
         "resizable": true,
-        "title": "mooc-helper",
-        "width": 800
+        "title": "mooc-helper"
       }
     ]
   }

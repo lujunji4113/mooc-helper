@@ -1,7 +1,7 @@
 import * as React from "react";
 import Input from "@mui/material/Input";
-import { getAllMyCourseList } from "@/api";
-import { PSIZE } from "@/constants";
+import { courseList as getCourseList } from "@/api";
+import { PAGE_SIZE } from "@/constants";
 import { useSetRecoilState } from "recoil";
 import {
   countState,
@@ -9,6 +9,7 @@ import {
   recentCourseListState,
 } from "@/features/course";
 import { messageState } from "@/features/message";
+import store from "@/lib/store";
 
 export default function MobToken() {
   const [value, setValue] = React.useState("");
@@ -19,14 +20,14 @@ export default function MobToken() {
 
   const changeValue: React.ChangeEventHandler<
     HTMLTextAreaElement | HTMLInputElement
-  > = (ev) => {
+  > = async (ev) => {
     setValue(ev.target.value);
-    localStorage.setItem("mob-token", ev.target.value);
   };
 
   const handleTokenChange = async () => {
     try {
-      const { status, results } = await getAllMyCourseList(1, PSIZE);
+      await store.set("mob-token", value);
+      const { status, results } = await getCourseList(1, PAGE_SIZE);
       if (status.code === 0) {
         setCount(results.pagination.totlePageCount);
         setCourseList(results.result);
@@ -46,7 +47,9 @@ export default function MobToken() {
   };
 
   React.useEffect(() => {
-    setValue(localStorage.getItem("mob-token") ?? "");
+    store.get("mob-token").then((storedMobToken) => {
+      setValue(storedMobToken ?? "");
+    });
   }, []);
 
   return (

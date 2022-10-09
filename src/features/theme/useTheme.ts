@@ -4,6 +4,7 @@ import { createTheme } from "@mui/material/styles";
 import { deepmerge } from "@mui/utils";
 import modeState from "./modeState";
 import { getDesignTokens, getThemedComponents } from "./brandingTheme";
+import store from "@/lib/store";
 
 export function useTheme() {
   const [themeMode, setThemeMode] = React.useState<"light" | "dark">("light");
@@ -32,11 +33,13 @@ export function useTheme() {
   }, [mode]);
 
   React.useEffect(() => {
-    const preferMode = (localStorage.getItem("mode") ?? "system") as
-      | "light"
-      | "dark"
-      | "system";
-    setMode(preferMode);
+    store.get("mode").then((storedMode) => {
+      const preferMode = (storedMode ?? "system") as
+        | "light"
+        | "dark"
+        | "system";
+      setMode(preferMode);
+    });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
