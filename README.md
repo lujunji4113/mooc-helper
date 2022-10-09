@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://github.com/lujunji-xiaolu/mooc-helper" rel="noopener" target="_blank"><img width="150" src="./public/logo.svg" alt="mooc helper logo"></a>
+  <a href="https://github.com/lujunji-xiaolu/mooc-helper" rel="noopener" target="_blank"><img width="150" src="./docs/media/logo.svg" alt="mooc helper logo"></a>
 </p>
 
 <h1 align="center">mooc helper</h1>
