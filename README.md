@@ -10,11 +10,14 @@
 
 [mooc helper (mooc-helper.vercel.app)](https://mooc-helper.vercel.app/)
 
-因为网站服务器在国外，经常会出现请求超时现象，可尝试刷新页面或通过手机端访问或本地启动该项目
+建议国内用户尝试如下方式使用：
+- 使用[桌面端应用程序](https://github.com/xiaolu-lujunji/mooc-helper/releases)（目前仅支持 Windows）
+- 手机端访问
+- 本地启动该项目
 
 ## 使用步骤
 
-1. [HttpCanary for Android - APK Download (apkpure.com)](https://apkpure.com/httpcanary-—-http-sniffer-capture-analysis/com.guoshi.httpcanary)
+1. 下载 Android 端抓包工具 [HttpCanary for Android - APK Download (apkpure.com)](https://apkpure.com/httpcanary-—-http-sniffer-capture-analysis/com.guoshi.httpcanary)
 1. 通过 HttpCanary 抓包工具获取你的 `mob-token`
 
 https://user-images.githubusercontent.com/95520590/170272233-b43614b8-e3bb-4111-a5c7-d54df0209d4e.mp4
