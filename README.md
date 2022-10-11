@@ -26,5 +26,5 @@ https://user-images.githubusercontent.com/95520590/170272233-b43614b8-e3bb-4111-
 
 ## 注意事项
 
-- 题目排列顺序、答案排列顺序可能存在差异
 - ❗❗❗ 请明确查询对象是否有时间限制。如果是，请查询后 **在时间截至前** 提交一次，保证一次有效成绩，因为查询操作会开启一次测验。[详情请看 issue13](https://github.com/xiaolu-lujunji/mooc-helper/issues/13)
+- 题目排列顺序、答案排列顺序可能存在差异
