@@ -254,9 +254,11 @@ const Home: NextPage<{
 export const getStaticProps = () => {
   return {
     props: {
-      banner: process.env.BANNER ?? null,
-      bannerLink: process.env.BANNER_LINK ?? null,
-      bannerLinkDescription: process.env.BANNER_LINK_DESCRIPTION ?? null,
+      ...(!process.env.NEXT_PUBLIC_TAURI && {
+        banner: process.env.BANNER ?? null,
+        bannerLink: process.env.BANNER_LINK ?? null,
+        bannerLinkDescription: process.env.BANNER_LINK_DESCRIPTION ?? null,
+      }),
     }, // will be passed to the page component as props
   };
 };
