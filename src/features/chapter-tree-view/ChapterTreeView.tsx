@@ -23,7 +23,7 @@ export default function ChapterTreeView() {
         try {
           const { status, results } = await courseInfo(
             course.id,
-            course.currentTermId
+            course.termPanel.id
           );
           if (status.code === 0) {
             setChapters(results.termDto.chapters);

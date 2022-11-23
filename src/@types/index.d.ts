@@ -14,6 +14,9 @@ interface Course {
   imgUrl: string;
   fromCourseId: number;
   schoolPanel: SchoolPanel;
+  termPanel: {
+    id: number;
+  };
 }
 
 interface SchoolPanel {

@@ -14,7 +14,10 @@ async function requestWeb<T>(options: RequestOptions) {
   const response = await ky(options.url, {
     prefixUrl: "/api",
     method: options.method,
-    headers: options.headers,
+    headers: {
+      ...options.headers,
+      "edu-app-type": "android",
+    },
     searchParams: {
       ...options.query,
       "mob-token": mobToken ?? "",
@@ -44,6 +47,9 @@ async function requestTauri<T>(options: RequestOptions) {
   const client = await getClient();
   const response = await client.request<T>({
     url: `https://www.icourse163.org/${url}`,
+    headers: {
+      "edu-app-type": "android",
+    },
     query: handledQuery,
     ...other,
   });
