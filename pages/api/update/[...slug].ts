@@ -1,10 +1,9 @@
 import got from "got";
 import type { NextApiRequest, NextApiResponse } from "next";
 
+// https://docs.rs/tauri/1.2.0/tauri/updater/struct.UpdateBuilder.html#method.target
 const platformSuffixMap: Record<string, string> = {
-  darwin: ".app.tar.gz",
-  linux: ".AppImage.tar.gz",
-  win64: ".msi.zip",
+  windows: ".msi.zip",
 };
 
 export default async function handler(
