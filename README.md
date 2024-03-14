@@ -11,6 +11,7 @@
 [mooc helper (mooc-helper.vercel.app)](https://mooc-helper.vercel.app/)
 
 建议国内用户尝试如下方式使用：
+
 - 使用[桌面端应用程序](https://github.com/xiaolu-lujunji/mooc-helper/releases)（目前仅支持 Windows）
 - 手机端访问
 - 本地启动该项目
@@ -23,6 +24,8 @@
 https://user-images.githubusercontent.com/95520590/170272233-b43614b8-e3bb-4111-a5c7-d54df0209d4e.mp4
 
 2. 点击[网站](https://mooc-helper.vercel.app/)右上角**设置按钮**，将获取的`mob-token`粘贴到**MOB_TOKEN 输入框**中。然后关闭设置，等待片刻。
+
+> 如果你无法使用 HttpCanary，你可以尝试使用 [Charles 代理](https://juejin.cn/post/7345905452793167907#heading-2)。
 
 ## 注意事项
 
